@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="javaspringtraining-day4-initial:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="javaspringtraining-poc.war">
+      <element id="artifact" artifact-name="javaspringtraining-day4-initial:war exploded" />
+    </root>
+  </artifact>
+</component>
