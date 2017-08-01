@@ -15,9 +15,9 @@
 </head>
 <body onload="isSavingOrUpdating()">
 
-    <h2 id="headerText">What is your favorite restaurant?</h2>
+    <h2 id="headerText" class="headers-region" align="center" style="font-family: 'Yu Gothic Medium'" >What is your favorite restaurant</h2>
     <hr/>
-    <form:form modelAttribute="restaurant" servletRelativeAction="/add-restaurant" method="POST">
+    <form:form modelAttribute="restaurant" servletRelativeAction="/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
         <form:hidden path="id"  />
         Name: <form:input path="name" id="restaurantName" />
         <form:errors path="name"/><br/>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/javaspringtraining-day4-initial.iml" filepath="$PROJECT_DIR$/javaspringtraining-day4-initial.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javaspringtraining-poc.iml" filepath="$PROJECT_DIR$/javaspringtraining-poc.iml" />
     </modules>
   </component>
 </project>

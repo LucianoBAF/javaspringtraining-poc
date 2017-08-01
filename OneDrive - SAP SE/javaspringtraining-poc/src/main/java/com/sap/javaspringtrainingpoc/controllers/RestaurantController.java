@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,9 +42,11 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "/add-restaurant", method = RequestMethod.POST)
-    public String createRestaurant(@Valid Restaurant restaurant,BindingResult bindingResult) {
+    public String createRestaurant(@Valid Restaurant restaurant,BindingResult bindingResult,RedirectAttributes redirectAttributes, HttpServletRequest req) {
+
 
         if (bindingResult.hasErrors()) {
+
             return "add-restaurant";
         }
 
@@ -54,7 +57,7 @@ public class RestaurantController {
             restaurantService.saveRestaurant(restaurant);
         }
 
-       //redirectAttributes.addFlashAttribute("success", true);
+        redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
     }
 

@@ -1,6 +1,8 @@
 package com.sap.javaspringtrainingpoc.models;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,12 +19,14 @@ public class Restaurant {
     @Column(name = "ID")
     private int id;
 
+    @NotBlank
     @Column(name = "NAME")
-    @NotEmpty
     private String name;
 
+    @NumberFormat(style = NumberFormat.Style.NUMBER, pattern = "###.##")
     @Column(name = "AVERAGEPRICE")
     private double averagePrice;
+
 
     @Column(name = "LOCATION")
     private String location;

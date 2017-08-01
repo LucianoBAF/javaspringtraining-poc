@@ -59,11 +59,6 @@ public class DefaultRestaurantDao  implements RestaurantDao {
     public Restaurant getRestaurantById(int restaurantId) {
         try(Session session = sessionFactory.openSession()){
             return session.get(Restaurant.class,restaurantId);
-            /*
-            DetachedCriteria criteria = DetachedCriteria.forClass(Restaurant.class);
-            criteria.add(Restrictions.like("id", String.valueOf(restaurantId), MatchMode.ANYWHERE));
-            return (Restaurant) criteria.getExecutableCriteria(session).uniqueResult();
-            */
         }
 
 
