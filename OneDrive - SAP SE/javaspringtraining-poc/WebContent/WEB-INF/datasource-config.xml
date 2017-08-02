@@ -13,7 +13,7 @@
     <!-- Data Source -->
     <bean id="dataSourceDefault" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value="jdbc:hsqldb:file:C:\databases\javaspringtraining-poc\trainingdb;hsqldb.lock_file=false;shutdown=true"/>
+        <property name="url" value="jdbc:hsqldb:file:C:\Users\I863409\OneDrive - SAP SE\databases\javaspringtraining-poc\trainingdb;hsqldb.lock_file=false;shutdown=true"/>
         <property name="username" value="SA"/>
         <property name="password" value=""/>
         <property name="initialSize" value="1"/>

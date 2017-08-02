@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="javaspringtraining-day4-initial" />
+        <module name="javaspringtraining-poc" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="javaspringtraining-day4-initial" target="1.8" />
+      <module name="javaspringtraining-poc" target="1.8" />
+      <module name="maven-archiver" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

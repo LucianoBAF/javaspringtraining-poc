@@ -29,4 +29,16 @@
           class="com.sap.javaspringtrainingpoc.services.impls.DefaultRestaurantService"/>
     <alias name="defaultRestaurantService" alias="restaurantService"/>
 
+
+    <!-- Bean for the User Dao -->
+    <bean name="hibernateUserDao" class="com.sap.javaspringtrainingpoc.daos.impls.DefaultUserDao">
+        <!--<property name="sessionFactory" ref="sessionFactory"/>-->
+    </bean>
+    <alias name="hibernateUserDao" alias="userDao"/>
+
+    <!-- Beans for the User service-->
+    <bean name="defaultUserService"
+          class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserService"/>
+    <alias name="defaultUserService" alias="userService"/>
+
 </beans>

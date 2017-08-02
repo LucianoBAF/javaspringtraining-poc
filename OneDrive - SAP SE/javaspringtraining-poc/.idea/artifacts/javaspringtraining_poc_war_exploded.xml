@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="javaspringtraining-day4-initial:war exploded">
+  <artifact type="exploded-war" name="javaspringtraining-poc:war exploded">
     <output-path>$PROJECT_DIR$/target/javaspringtraining-poc-1.0-SNAPSHOT</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
