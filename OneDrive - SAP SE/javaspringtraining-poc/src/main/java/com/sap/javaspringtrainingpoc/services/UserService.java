@@ -9,4 +9,6 @@ public interface UserService {
     void saveUser(User user);
 
     boolean userEmailExists(String userEmail);
+
+    boolean confirmPassword(User user);
 }

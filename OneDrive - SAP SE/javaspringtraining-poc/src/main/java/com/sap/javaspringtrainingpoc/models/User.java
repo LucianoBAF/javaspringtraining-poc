@@ -20,12 +20,12 @@ public class User {
     @Column(name = "ID")
     private int id;
 
-    @NotBlank(message = "Please insert a non blank name")
+    @NotBlank(message = "Please insert a non blank value")
     @Column(name = "NAME")
     private String name;
 
-    @NotBlank(message = "Please insert a non blank name")
-    @Pattern(regexp="[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")
+    @NotBlank(message = "Please insert a non blank value")
+    @Pattern(regexp="[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message = "Format must be email@emailprovider.com")
     @Column(name = "EMAIL")
     private String email;
 
@@ -34,9 +34,8 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Transient
-    @Column(name = "PASSWORDCONFIRM")
-    private String passwordconfirm;
+    @Transient //only temporarily needed. Not saved in the database
+    private String passwordConfirm;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DATEOFBIRTH")
@@ -74,12 +73,12 @@ public class User {
         this.password = password;
     }
 
-    public String getPasswordconfirm() {
-        return passwordconfirm;
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    public void setPasswordconfirm(String passwordconfirm) {
-        this.passwordconfirm = passwordconfirm;
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public String getDateOfBirth() {

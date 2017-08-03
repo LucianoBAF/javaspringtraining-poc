@@ -17,7 +17,7 @@
 
     <h2 id="headerText" class="headers-region" align="center" style="font-family: 'Yu Gothic Medium'" >What is your favorite restaurant</h2>
     <hr/>
-    <form:form modelAttribute="restaurant" servletRelativeAction="/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
+    <form:form modelAttribute="restaurant" servletRelativeAction="/restaurants/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
         <form:hidden path="id"  />
         Name: <form:input path="name" id="restaurantName" />
         <form:errors path="name"/><br/>
@@ -32,7 +32,7 @@
 
         <form:button>Save</form:button>
         <!--    <a href='/'>Cancel</a>  -->
-        <button type="cancel" onclick="window.location='/';return false;">Cancel</button>
+        <button type="cancel" onclick="window.location='/restaurants/';return false;">Cancel</button>
 
     </form:form>
 

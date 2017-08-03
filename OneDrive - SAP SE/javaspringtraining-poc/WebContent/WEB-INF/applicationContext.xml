@@ -41,4 +41,20 @@
           class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserService"/>
     <alias name="defaultUserService" alias="userService"/>
 
+
+
+
+
+    <!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" /> -->
+    <!--
+    <bean class="com.sap.javaspringtrainingpoc.controllers.UserController">
+        <property name="formView" value="CustomerForm" />
+        <property name="successView" value="CustomerSuccess" />
+
+
+        <property name="validator">
+            <bean class="com.sap.javaspringtrainingpoc.validators.impls.DefaultUserValidator" />
+        </property>
+    </bean>
+    -->
 </beans>

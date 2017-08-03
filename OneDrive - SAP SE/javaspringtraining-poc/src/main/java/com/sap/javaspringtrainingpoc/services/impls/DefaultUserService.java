@@ -6,11 +6,15 @@ import com.sap.javaspringtrainingpoc.services.UserService;
 import javafx.scene.control.Alert;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import javax.swing.*;
+
 /**
  * Created by I863409 on 02/08/2017.
  */
 public class DefaultUserService implements UserService{
 
+    @Resource
     private UserDao userDao;
 
     @Override
@@ -18,19 +22,18 @@ public class DefaultUserService implements UserService{
     public void saveUser(User user) {
         userDao.saveUser(user);
 
-        Alert alert = null;
-        alert.setTitle("User saved");
-        alert.show();
+        //JOptionPane.showMessageDialog(null, "User saved");
     }
 
     @Override
     public boolean userEmailExists(String userEmail) {
         boolean emailExists = userDao.userEmailExists(userEmail);
-
-        Alert alert = null;
-        alert.setTitle("Email exists: "+ emailExists);
-        alert.show();
-
         return emailExists;
     }
+
+    @Override
+    public boolean confirmPassword(User user){
+        return userDao.confirmPassword(user);
+    }
+
 }

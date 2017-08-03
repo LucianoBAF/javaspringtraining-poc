@@ -29,9 +29,22 @@ public class DefaultUserDao implements UserDao{
     public boolean userEmailExists(String userEmail) {
         try(Session session = sessionFactory.openSession()){
             DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
-            criteria.add(Restrictions.like("email", userEmail.toString(), MatchMode.EXACT));
-            boolean dontExists = criteria.getExecutableCriteria(session).uniqueResult().equals(null);
+            criteria.add(Restrictions.like("email", userEmail, MatchMode.EXACT));
+            User user = (User)criteria.getExecutableCriteria(session).uniqueResult();
+            boolean dontExists = user == null;
             return  !dontExists;
         }
     }
+
+    @Override
+    public boolean confirmPassword(User user) {
+        try(Session session = sessionFactory.openSession()){
+            DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+            criteria.add(Restrictions.like("email", user.getEmail(), MatchMode.EXACT));
+            User dbUser = (User)(criteria.getExecutableCriteria(session).uniqueResult());
+            return  dbUser.getPassword().equals(user.getPassword());
+        }
+    }
+
+
 }

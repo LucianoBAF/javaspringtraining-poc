@@ -22,6 +22,7 @@ import java.util.List;
  * Created by I863409 on 24/07/2017.
  */
 @Controller
+@RequestMapping(value = "/restaurants")
 public class RestaurantController {
 
     @Resource
@@ -43,10 +44,7 @@ public class RestaurantController {
 
     @RequestMapping(value = "/add-restaurant", method = RequestMethod.POST)
     public String createRestaurant(@Valid Restaurant restaurant,BindingResult bindingResult,RedirectAttributes redirectAttributes, HttpServletRequest req) {
-
-
         if (bindingResult.hasErrors()) {
-
             return "add-restaurant";
         }
 
@@ -58,11 +56,11 @@ public class RestaurantController {
         }
 
         redirectAttributes.addFlashAttribute("success", true);
-        return "redirect:/";
+        return "redirect:/restaurants/";
     }
 
     @RequestMapping(value = "/update-restaurant", method = RequestMethod.GET)
-    public String updateRestaurant(@RequestParam("restaurantName") int restaurantId, Model model){
+    public String updateRestaurant(@RequestParam("restaurantId") int restaurantId, Model model){
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         model.addAttribute("restaurant",restaurant);
@@ -71,12 +69,12 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "/delete-restaurant", method = RequestMethod.GET)
-    public String deleteRestaurant(@RequestParam("restaurantName") int restaurantId){
+    public String deleteRestaurant(@RequestParam("restaurantId") int restaurantId){
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         restaurantService.deleteRestaurant(restaurantId);
 
-        return "redirect:/";
+        return "redirect:/restaurants/";
     }
 
     /*

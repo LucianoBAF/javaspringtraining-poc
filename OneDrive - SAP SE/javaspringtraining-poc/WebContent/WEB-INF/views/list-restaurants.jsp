@@ -46,7 +46,7 @@
                 <th>Alelo acceptance</th>
                 <th>Image</th>
                 <th>
-                    <a href="/add-restaurant" style="align-self: center;background-color: forestgreen;">
+                    <a href="/restaurants/add-restaurant" style="align-self: center;background-color: forestgreen;">
                         <img class="button" height="30px" width="30px" alt="Add a new restaurant"
                              src="/resources/images/add_icon.png"
                         />
@@ -65,12 +65,12 @@
                     </td>
                     <td>${restaurant.image}</td>
 
-                    <td><a href="/update-restaurant?restaurantName=${restaurant.id}">
+                    <td><a href="/restaurants/update-restaurant?restaurantId=${restaurant.id}">
                             <img class="button" height="30px" width="30px" alt="Update the restaurant"
                                 src="/resources/images/update_icon.png"
                             />
                         </a>
-                    <td><a href="/delete-restaurant?restaurantName=${restaurant.id}">
+                    <td><a href="/restaurants/delete-restaurant?restaurantId=${restaurant.id}">
                         <img class="button" height="30px" width="30px" alt="Delete the restaurant"
                              src="/resources/images/delete_icon.png"
                         />
