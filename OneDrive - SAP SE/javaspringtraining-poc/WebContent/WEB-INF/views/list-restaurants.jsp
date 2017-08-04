@@ -5,11 +5,12 @@
   Time: 13:53
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <html>
 
@@ -35,6 +36,8 @@
 
 
     <h2 id="headerText" class="headers-region" align="center" style="font-family: 'Yu Gothic Medium'">List of CD's favorite restaurants</h2>
+
+    <a href="<c:url value="/logout" />">Logout</a>
 
     <div class="container" style="alignment: center; align-items: center">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">

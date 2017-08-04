@@ -10,7 +10,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Register</title>
+    <title>Where to lunch, CD? - Register</title>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
             <form:errors path="name"/><br/>
             Email: <form:input path="email"/>
             <form:errors path="email"/><br/>
-            Date of birth: <form:input path="dateOfBirth" format="dd/MM/yyyy"/>
+            Date of birth: <form:input  path="dateOfBirth" format="dd/MM/yyyy"/>
             <form:errors path="dateOfBirth"/><br/>
             Password: <form:password path="password"/>
             <form:errors path="password"/><br/>

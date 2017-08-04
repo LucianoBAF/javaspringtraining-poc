@@ -31,15 +31,21 @@
 
 
     <!-- Bean for the User Dao -->
-    <bean name="hibernateUserDao" class="com.sap.javaspringtrainingpoc.daos.impls.DefaultUserDao">
-        <!--<property name="sessionFactory" ref="sessionFactory"/>-->
-    </bean>
+    <bean name="hibernateUserDao" class="com.sap.javaspringtrainingpoc.daos.impls.DefaultUserDao"/>
     <alias name="hibernateUserDao" alias="userDao"/>
 
-    <!-- Beans for the User service-->
-    <bean name="defaultUserService"
-          class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserService"/>
+    <!-- Bean for the User service-->
+    <bean name="defaultUserService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserService"/>
     <alias name="defaultUserService" alias="userService"/>
+
+
+
+    <!-- Bean for the Security service-->
+    <!--
+    <bean name="defaultSecurityService"
+          class="com.sap.javaspringtrainingpoc.services.impls.DefaultSecurityService"/>
+    <alias name="defaultSecurityService" alias="securityService"/>
+    -->
 
 
 
@@ -53,7 +59,7 @@
 
 
         <property name="validator">
-            <bean class="com.sap.javaspringtrainingpoc.validators.impls.DefaultUserValidator" />
+            <bean clacom.sap.javaspringtrainingpoc.validators.DefaultUserValidatorator" />
         </property>
     </bean>
     -->

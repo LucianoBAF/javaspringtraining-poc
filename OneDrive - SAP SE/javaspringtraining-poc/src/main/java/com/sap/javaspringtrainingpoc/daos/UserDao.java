@@ -10,4 +10,6 @@ public interface UserDao {
     boolean userEmailExists(String userEmail);
 
     boolean confirmPassword(User user);
+
+    User getUserByEmail(String email);
 }

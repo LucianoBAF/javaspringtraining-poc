@@ -1,10 +1,12 @@
 package com.sap.javaspringtrainingpoc.controllers;
 
 import com.sap.javaspringtrainingpoc.models.User;
+import com.sap.javaspringtrainingpoc.services.SecurityService;
 import com.sap.javaspringtrainingpoc.services.UserService;
-import com.sun.deploy.panel.JreDialog;
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXAboutDialog;
-import javafx.collections.FXCollections;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.*;
 import javax.validation.Valid;
 
@@ -28,31 +32,36 @@ public class UserController {
     @Resource
     private UserService userService;
 
+
+    @Resource
+    private SecurityService securityService;
+
+
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         User user = new User();
-        user.setName("name"); // In order to have the obligatory field name not null for this generic user
-        user.setId(1);
+
 
         model.addAttribute("user", user);
-        return "welcome";
+        return "login";
     }
-
+/*
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String createRestaurant(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest req) {
+    public String login(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         if (bindingResult.hasErrors()) {
             //bindingResult.rejectValue("general","general","Error: "+ bindingResult.getAllErrors());
-            return "welcome";
+            return "login";
         }
 
         if(userService.userEmailExists(user.getEmail())){
             if(userService.confirmPassword(user)) {
                 //redirectAttributes.addFlashAttribute("success", true);
                 return "redirect:/restaurants/";
+
             }
             else{
                 bindingResult.rejectValue("password","password","Wrong password");
-                return "welcome";
+                return "login";
             }
         }
         else {
@@ -60,7 +69,7 @@ public class UserController {
             return "redirect:/registration";
         }
     }
-
+*/
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         User user = new User();
@@ -97,6 +106,25 @@ public class UserController {
     }
 
 
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "logout";
+    }
 
+
+    @RequestMapping(value = {"/accessdenied"}, method = RequestMethod.GET)
+    public String accessdenied(Model model) {
+
+        return "accessdenied";
+    }
+
+    @RequestMapping(value="/pagenotfound", method = RequestMethod.GET)
+    public String pagenotfound(){
+        return "404";
+    }
 
 }

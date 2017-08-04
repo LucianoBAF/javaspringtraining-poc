@@ -1,4 +1,3 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: I863409
@@ -7,26 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Where to lunch, CD? - Login</title>
 </head>
 <body>
 
     <div class="container" style="padding-left: 35%; align-items: center">
         <h1 >Log in</h1>
-
-        <form:form modelAttribute="user" servletRelativeAction="/login" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: right; align-self: center">
+        <span class="success-message" >${message}</span>
+        <form:form modelAttribute="user" action="/login" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: right; align-self: center">
             Email: <form:input path="email"/>
             <form:errors path="email"/><br/>
             Password: <form:password path="password"/>
             <form:errors path="password"/><br/>
 
-            <form:hidden path="id"  />
-            <form:hidden path="name"  />
-            <form:hidden path="passwordConfirm"  />
-            <form:hidden path="dateOfBirth"  />
+
+
+
 
             <div style="align-items: center;width: 100%;align-self: stretch;">
                 <form:button>Login</form:button>

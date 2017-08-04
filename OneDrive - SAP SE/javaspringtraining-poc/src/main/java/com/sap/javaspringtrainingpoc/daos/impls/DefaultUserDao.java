@@ -47,4 +47,16 @@ public class DefaultUserDao implements UserDao{
     }
 
 
+
+    @Override
+    public User getUserByEmail(String email) {
+        try(Session session = sessionFactory.openSession()){
+            DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+            criteria.add(Restrictions.like("email", email, MatchMode.EXACT));
+            return  (User)(criteria.getExecutableCriteria(session).uniqueResult());
+        }
+    }
+
+
+
 }
