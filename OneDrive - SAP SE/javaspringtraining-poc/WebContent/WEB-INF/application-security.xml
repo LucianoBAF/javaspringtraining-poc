@@ -24,7 +24,8 @@
 
                     authentication-failure-url="/?error"
                     />
-        <logout logout-url="/logoutSpring"/>
+        <logout logout-success-url="/" logout-url="/logoutSpring" />
+        <csrf disabled="true"></csrf>
     </http>
 
     <beans:bean id="loginSuccessHandler" class="com.sap.javaspringtrainingpoc.security.LoginSuccessHandler">

@@ -106,14 +106,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "logout";
-    }
+
 
 
     @RequestMapping(value = {"/accessdenied"}, method = RequestMethod.GET)
