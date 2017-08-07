@@ -11,17 +11,19 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html >
 <head>
+    <%@include file="/resources/tags/header.jsp"%>
     <title>Where to lunch, CD? - Adding a restaurant</title>
 </head>
 <body onload="isSavingOrUpdating()">
 
-    <h2 id="headerText" class="headers-region" align="center" style="font-family: 'Yu Gothic Medium'" >What is your favorite restaurant</h2>
+    <h2 id="headerText" class="header">What is your favorite restaurant</h2>
     <hr/>
+    <div class="items-center" style="margin-left: 40%" >
     <form:form modelAttribute="restaurant" servletRelativeAction="/restaurants/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
         <form:hidden path="id"  />
         Name: <form:input path="name" id="restaurantName" />
         <form:errors path="name"/><br/>
-        Price (BRL): <form:input path="averagePrice" format="0.00"/>
+        Price: <form:input path="averagePrice" format="0.00"/>
         <form:errors path="averagePrice"/><br/>
         Location: <form:input path="location" type="text"/>
         <form:errors path="location"/><br/>
@@ -35,6 +37,7 @@
         <button type="cancel" onclick="window.location='/restaurants/';return false;">Cancel</button>
 
     </form:form>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript">
         function isSavingOrUpdating(){

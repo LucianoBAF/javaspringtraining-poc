@@ -5,27 +5,29 @@
   Time: 14:18
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
     <title>Where to lunch, CD? - Login</title>
+    <%@include file="/resources/tags/header.jsp"%>
 </head>
 <body>
 
-    <div class="container" style="padding-left: 35%; align-items: center">
+    <h2 id="headerText" class="header">Where to lunch, CD?</h2>
+    <hr>
+    <br>
+
+    <div  class="myContainer">
         <h1 >Log in</h1>
         <c:if test="${param.error == 'true'}">
             <div class="form-group">
-                <jsp:text>Login error</jsp:text>
+                <span style="color: crimson">Login error, please verify your entries</span>
             </div>
         </c:if>
-        <form:form modelAttribute="user" servletRelativeAction="/" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: right; align-self: center">
-            Email: <form:input path="email"/>
+        <form:form modelAttribute="user" servletRelativeAction="/" method="POST" class="loginForm">
+            Email:    <form:input path="email" id="loginEmail"/>
             <form:errors path="email"/><br/>
-            Password: <form:password path="password"/>
+            Password: <form:password path="password" id="loginPassword"/>
             <form:errors path="password"/><br/>
 
 

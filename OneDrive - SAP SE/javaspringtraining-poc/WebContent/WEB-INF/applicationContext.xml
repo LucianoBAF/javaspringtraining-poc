@@ -38,6 +38,7 @@
     <bean name="defaultUserService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserService"/>
     <alias name="defaultUserService" alias="userService"/>
 
+    <!-- Bean for the front-end validation-->
     <bean name="userValidator"  class="com.sap.javaspringtrainingpoc.validators.UserValidator" />
 
 </beans>

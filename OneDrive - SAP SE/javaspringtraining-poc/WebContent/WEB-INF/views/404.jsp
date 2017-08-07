@@ -9,11 +9,16 @@
 <html>
 <head>
     <title>Where to lunch, CD? - 404</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/restaurantcss.css" >
 </head>
-<body>
-    <h2>404 - Page not found</h2>
-    <br>
-    <a>Go back: </a>
-    <a href="javascript:history.back()">Return</a>
+</bod>
+    <div class="myContainer">
+        <h2>404 - Page not found</h2>
+        <br>
+        <a>Go back: </a>
+        <a href="javascript:history.back()">Return</a>
+    </div>
 </body>
 </html>

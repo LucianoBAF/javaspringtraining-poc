@@ -11,23 +11,27 @@
 <html>
 <head>
     <title>Where to lunch, CD? - Register</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/restaurantcss.css" >
+
 </head>
 <body>
 
-    <div class="container" style="padding-left: 35%; align-items: center">
+    <div class="myContainer">
         <h2>Welcome. Please register</h2>
 
         <form:form modelAttribute="user" servletRelativeAction="/registration" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
             Name: <form:input path="name" id="userName" />
-            <form:errors path="name"/><br/>
+            <form:errors path="name"  class="errors"/><br/>
             Email: <form:input path="email"/>
-            <form:errors path="email"/><br/>
+            <form:errors path="email"  class="errors"/><br/>
             Date of birth: <form:input  path="dateOfBirth" format="dd/MM/yyyy"/>
-            <form:errors path="dateOfBirth"/><br/>
+            <form:errors path="dateOfBirth"  class="errors"/><br/>
             Password: <form:password path="password"/>
-            <form:errors path="password"/><br/>
+            <form:errors path="password"  class="errors"/><br/>
             Confirm password: <form:password path="passwordConfirm" />
-            <form:errors path="passwordConfirm"/><br/>
+            <form:errors path="passwordConfirm"  class="errors"/><br/>
 
 
             <form:hidden path="id"  />
