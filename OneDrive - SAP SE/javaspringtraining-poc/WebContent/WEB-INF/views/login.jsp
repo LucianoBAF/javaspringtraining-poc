@@ -17,14 +17,16 @@
 
     <div class="container" style="padding-left: 35%; align-items: center">
         <h1 >Log in</h1>
-        <span class="success-message" >${message}</span>
-        <form:form modelAttribute="user" action="/login" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: right; align-self: center">
+        <c:if test="${param.error == 'true'}">
+            <div class="form-group">
+                <jsp:text>Login error</jsp:text>
+            </div>
+        </c:if>
+        <form:form modelAttribute="user" servletRelativeAction="/" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: right; align-self: center">
             Email: <form:input path="email"/>
             <form:errors path="email"/><br/>
             Password: <form:password path="password"/>
             <form:errors path="password"/><br/>
-
-
 
 
 

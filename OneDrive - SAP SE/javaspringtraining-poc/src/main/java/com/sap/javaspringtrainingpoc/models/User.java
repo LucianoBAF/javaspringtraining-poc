@@ -30,7 +30,8 @@ public class User {
     private String email;
 
     @Size(min = 6, message = "At least 6 caracters needed")
-    @Pattern(regexp = "(?:\\d+[a-zA-Z]|[a-zA-Z]+\\d)[a-zA-Z\\d]*", message = "Must contain letters AND numbers")
+    //@Pattern(regexp = "(?:\\d+[a-zA-Z]|[a-zA-Z]+\\d)[a-zA-Z\\d]*", message = "Must contain letters AND numbers")
+    //Couldn't be done here because of password encryption
     @Column(name = "PASSWORD")
     private String password;
 

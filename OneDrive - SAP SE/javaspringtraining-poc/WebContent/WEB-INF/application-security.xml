@@ -15,32 +15,36 @@
         <intercept-url pattern="/restaurants/**" access="isAuthenticated()" />
         <access-denied-handler error-page="/accessdenied"></access-denied-handler>
         <form-login login-page="/"
+                    login-processing-url="/"
                     authentication-success-handler-ref="loginSuccessHandler"
-
                     username-parameter="email"
                     password-parameter="password"
-
-                    always-use-default-target="true"
-
-                    authentication-failure-url="/?error"
+                    authentication-failure-url="/?error=true"
                     />
         <logout logout-success-url="/" logout-url="/logoutSpring" />
         <csrf disabled="true"></csrf>
     </http>
+
+
 
     <beans:bean id="loginSuccessHandler" class="com.sap.javaspringtrainingpoc.security.LoginSuccessHandler">
         <beans:property name="defaultTargetUrl" value="/restaurants/"/>
         <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
     </beans:bean>
 
+
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsService">
-           <!-- <user-service properties=""></user-service> -->
+            <password-encoder ref="encoder"/>
         </authentication-provider>
     </authentication-manager>
 
     <beans:bean id="userDetailsService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserDetailsService" />
 
     <beans:bean id="securityService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultSecurityService" />
+
+    <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+
 
 </beans:beans>

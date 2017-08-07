@@ -28,9 +28,7 @@ public class DefaultRestaurantDao  implements RestaurantDao {
     @Override
     //@Transactional
     public List<Restaurant> listRestaurants() {
-
         List<Restaurant> restaurants;
-
         //This try automatically closes the session
         //If it is not used, is mandatory to use @Transactional
         try(Session session = sessionFactory.openSession()) {
@@ -50,8 +48,6 @@ public class DefaultRestaurantDao  implements RestaurantDao {
     public void updateRestaurant(Restaurant restaurant) {
         //It is already declared as transaction in the service
         Session session = sessionFactory.getCurrentSession();
-
-
         session.update(restaurant);
     }
 
@@ -60,14 +56,11 @@ public class DefaultRestaurantDao  implements RestaurantDao {
         try(Session session = sessionFactory.openSession()){
             return session.get(Restaurant.class,restaurantId);
         }
-
-
     }
 
     @Override
     public Restaurant getRestaurantByName(String restaurantName) {
         try(Session session = sessionFactory.openSession()){
-        //Session session = sessionFactory.getCurrentSession();
             DetachedCriteria criteria = DetachedCriteria.forClass(Restaurant.class);
             criteria.add(Restrictions.like("name", restaurantName, MatchMode.ANYWHERE));
             return (Restaurant) criteria.getExecutableCriteria(session).uniqueResult();
@@ -78,19 +71,7 @@ public class DefaultRestaurantDao  implements RestaurantDao {
     @Override
     public void deleteRestaurant(int restaurantId) {
         Session session = sessionFactory.getCurrentSession();
-
         Restaurant restaurant = session.load(Restaurant.class,restaurantId);
         session.delete(restaurant);
-
-
-
-
-        /*
-        DetachedCriteria criteria = DetachedCriteria.forClass(Restaurant.class);
-        criteria.add(Restrictions.like("name",restaurantName,MatchMode.EXACT));
-        Restaurant restaurant = (Restaurant) criteria.getExecutableCriteria(session).uniqueResult();
-
-        session.delete(restaurant);
-        */
     }
 }

@@ -37,18 +37,6 @@ public class DefaultUserDao implements UserDao{
     }
 
     @Override
-    public boolean confirmPassword(User user) {
-        try(Session session = sessionFactory.openSession()){
-            DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
-            criteria.add(Restrictions.like("email", user.getEmail(), MatchMode.EXACT));
-            User dbUser = (User)(criteria.getExecutableCriteria(session).uniqueResult());
-            return  dbUser.getPassword().equals(user.getPassword());
-        }
-    }
-
-
-
-    @Override
     public User getUserByEmail(String email) {
         try(Session session = sessionFactory.openSession()){
             DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
@@ -56,7 +44,4 @@ public class DefaultUserDao implements UserDao{
             return  (User)(criteria.getExecutableCriteria(session).uniqueResult());
         }
     }
-
-
-
 }

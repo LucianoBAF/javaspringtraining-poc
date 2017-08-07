@@ -76,16 +76,4 @@ public class RestaurantController {
 
         return "redirect:/restaurants/";
     }
-
-    /*
-    @RequestMapping(value = "/restaurantExists", method = RequestMethod.GET)
-    @ResponseBody //in order to reply with a object instead of a entire page, for example
-    public boolean restaurantExists(@RequestParam("restaurantName") String restaurantName){
-        boolean restaurantExists = false;
-        restaurantExists = restaurantService.restaurantExists(restaurantName);
-
-        return restaurantExists;
-    }
-    */
-
 }

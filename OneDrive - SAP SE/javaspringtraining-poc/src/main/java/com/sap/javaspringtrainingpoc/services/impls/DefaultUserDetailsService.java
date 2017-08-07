@@ -23,7 +23,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         User user = userDao.getUserByEmail(userEmail);
 
         if(user != null){

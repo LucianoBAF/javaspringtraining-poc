@@ -10,5 +10,9 @@ public interface UserService {
 
     boolean userEmailExists(String userEmail);
 
+    void encodeUserPasswords(User user);
+
     boolean confirmPassword(User user);
+
+    String encodePassword(String password);
 }
