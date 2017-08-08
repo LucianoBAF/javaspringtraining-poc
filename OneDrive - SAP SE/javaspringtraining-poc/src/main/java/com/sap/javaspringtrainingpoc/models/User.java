@@ -42,18 +42,6 @@ public class User {
     @Column(name = "DATEOFBIRTH")
     private String dateOfBirth;
 
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RESTAURANT_ID")
-    private Restaurant restaurant;
-
 
     public int getId() {
         return id;

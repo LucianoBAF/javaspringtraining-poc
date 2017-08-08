@@ -38,28 +38,6 @@ public class Restaurant {
     @Column(name = "IMAGE")
     private String image;
 
-    //The users that voted in this restaurant
-    @OneToMany(
-            mappedBy = "RESTAURANT",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @Column(name = "USERS")
-    private List<User> users;
-
-
-    //------------------------------------------
-    public void addUser(User user) {
-        users.add(user);
-        user.setRestaurant(this);
-    }
-
-    public void removeUser(User user) {
-        users.remove(user);
-        user.setRestaurant(null);
-    }
-    //------------------------------------------
-
 
     public int getId() {
         return id;
@@ -109,11 +87,4 @@ public class Restaurant {
         this.image = image;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }
