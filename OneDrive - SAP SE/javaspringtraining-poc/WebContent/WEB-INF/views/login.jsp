@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Where to lunch, CD? - Login</title>
-    <%@include file="/resources/tags/header.jsp"%>
+    <%@include file="/resources/tags/headerLogin.jsp"%>
 </head>
 <body>
 

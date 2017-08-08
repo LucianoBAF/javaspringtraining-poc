@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: I863409
-  Date: 07/08/2017
-  Time: 12:57
+  Date: 08/08/2017
+  Time: 10:29
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -11,6 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <head>
     <%-- Style --%>
@@ -23,17 +24,5 @@
 
     <title>Where to lunch, CD?</title>
 
-        <br>
-        <%-- Navigation bar at the top --%>
-        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-                <ul class="nav navbar-nav">
-                    <li role="presentation" class="active"><a href="#">List-restaurants</a></li>
-                    <li role="presentation"><a href="#">Last polls</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text navbar-right">Signed in as <sec:authentication property="principal.username" />  </p></li>
-                    <li>|</li>
-                    <li><a href="<c:url value="/logoutSpring" />" >Logout</a></li>
-                </ul>
-        </nav>
+    <br>
 </head>

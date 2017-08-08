@@ -25,7 +25,7 @@
     <h2 id="headerText" class="header">List of CD's favorite restaurants</h2>
     <hr>
 
-    <div class="logoutButton"><a href="<c:url value="/logoutSpring" />" >Logout</a></div>
+
 
     <br>
     <div class="text-center" >
@@ -68,7 +68,6 @@
                         />
                     <td><img src="/resources/images/map_icon.png" height="30px" width="30px" alt="Show restaurant directions"
                              onmousedown="changeMap('${restaurant.name}','${restaurant.location}')"/>
-
                     </td>
                 </tr>
             </c:forEach>
@@ -81,8 +80,6 @@
                 <iframe id="mapFrame"
                         width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4&q=SAP+Sao+Leopoldo";
-
-
                         >
                 </iframe>
             </td>
