@@ -12,33 +12,34 @@
 
     <context:annotation-config/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
-
     <!--    <mvc:annotation-driven/>    -->
     <!--  EM DATASOURCE-CONFIG.XML :   <tx:annotation-driven/>     -->
 
 
-
-    <!-- Bean for the Restaurant Dao -->
+    <!-- Bean for Daos -->
     <bean name="hibernateRestaurantDao" class="com.sap.javaspringtrainingpoc.daos.impls.DefaultRestaurantDao">
         <!--<property name="sessionFactory" ref="sessionFactory"/>-->
     </bean>
     <alias name="hibernateRestaurantDao" alias="restaurantDao"/>
 
-    <!-- Beans for the restaurant service-->
-    <bean name="defaultRestaurantService"
-          class="com.sap.javaspringtrainingpoc.services.impls.DefaultRestaurantService"/>
-    <alias name="defaultRestaurantService" alias="restaurantService"/>
-
-
-    <!-- Bean for the User Dao -->
     <bean name="hibernateUserDao" class="com.sap.javaspringtrainingpoc.daos.impls.DefaultUserDao"/>
     <alias name="hibernateUserDao" alias="userDao"/>
 
-    <!-- Bean for the User service-->
+    <bean name="hibernateVoteDao" class="com.sap.javaspringtrainingpoc.daos.impls.DefaultVoteDao"/>
+    <alias name="hibernateVoteDao" alias="voteDao"/>
+
+
+    <!-- Beans for services-->
+    <bean name="defaultRestaurantService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultRestaurantService"/>
+    <alias name="defaultRestaurantService" alias="restaurantService"/>
+
     <bean name="defaultUserService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultUserService"/>
     <alias name="defaultUserService" alias="userService"/>
 
+    <bean name="defaultVoteService" class="com.sap.javaspringtrainingpoc.services.impls.DefaultVoteService"/>
+    <alias name="defaultVoteService" alias="voteService"/>
+
+
     <!-- Bean for the front-end validation-->
     <bean name="userValidator"  class="com.sap.javaspringtrainingpoc.validators.UserValidator" />
-
 </beans>

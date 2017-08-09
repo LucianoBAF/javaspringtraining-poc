@@ -39,6 +39,15 @@ public class Restaurant {
     private String image;
 
 
+
+    @OneToMany(
+            mappedBy = "restaurant",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<VoteHistory> voteHistories;
+
+
     public int getId() {
         return id;
     }
@@ -87,4 +96,11 @@ public class Restaurant {
         this.image = image;
     }
 
+    public List<VoteHistory> getVoteHistories() {
+        return voteHistories;
+    }
+
+    public void setVoteHistories(List<VoteHistory> voteHistories) {
+        this.voteHistories = voteHistories;
+    }
 }

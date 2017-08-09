@@ -2,7 +2,11 @@ package com.sap.javaspringtrainingpoc.controllers;
 
 import com.sap.javaspringtrainingpoc.daos.RestaurantDao;
 import com.sap.javaspringtrainingpoc.models.Restaurant;
+import com.sap.javaspringtrainingpoc.models.User;
+import com.sap.javaspringtrainingpoc.models.VoteHistory;
 import com.sap.javaspringtrainingpoc.services.RestaurantService;
+import com.sap.javaspringtrainingpoc.services.UserService;
+import com.sap.javaspringtrainingpoc.services.VoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +20,8 @@ import javax.annotation.Resource;
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,11 +34,20 @@ public class RestaurantController {
     @Resource
     private RestaurantService restaurantService;
 
+    @Resource
+    private UserService userService;
+
+    @Resource
+    private VoteService voteService;
 
     @RequestMapping(value = "/")
     public String listRestaurants(Model model) {
         List<Restaurant> restaurants = restaurantService.listRestaurants();
         model.addAttribute("restaurants", restaurants);
+
+        List<VoteHistory> todayVoteHistory = voteService.getTodayVoteHistory();
+        model.addAttribute("todayVoteHistory",todayVoteHistory);
+
         return "list-restaurants";
     }
 
@@ -76,4 +91,18 @@ public class RestaurantController {
 
         return "redirect:/restaurants/";
     }
+
+
+    @ResponseBody //in order to return a json to ajax request on the view
+    @RequestMapping(value = "/addVote", method = RequestMethod.GET)
+    public void addVote(@RequestParam("restaurantId") int restaurantId, Principal principal){
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        User user =  userService.getUserByEmail(principal.getName());   //Get logged user email
+
+        voteService.addUserVoteToRestaurant(user,restaurant);
+
+        //return "redirect:/restaurants/";
+    }
+
+
 }

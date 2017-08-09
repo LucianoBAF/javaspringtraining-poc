@@ -12,4 +12,6 @@ public interface UserDao {
 //    boolean confirmPassword(User user);
 
     User getUserByEmail(String email);
+
+    User getUserById (int userId);
 }

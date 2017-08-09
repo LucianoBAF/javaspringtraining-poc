@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * Created by I863409 on 02/08/2017.
  */
@@ -38,9 +40,21 @@ public class User {
     @Transient //only temporarily needed. Not saved in the database
     private String passwordConfirm;
 
+    //--------------------------------------------
+    // TODO: fix date from String to LocalDate
+    //--------------------------------------------
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DATEOFBIRTH")
     private String dateOfBirth;
+
+
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<VoteHistory> voteHistories;
 
 
     public int getId() {
@@ -89,5 +103,13 @@ public class User {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<VoteHistory> getVoteHistories() {
+        return voteHistories;
+    }
+
+    public void setVoteHistories(List<VoteHistory> voteHistories) {
+        this.voteHistories = voteHistories;
     }
 }

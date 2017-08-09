@@ -13,10 +13,43 @@
     <%@include file="/resources/tags/header.jsp"%>
 <head>
     <%--Scripts Area--%>
-    <script type="text/javascript">
+    <script>
         function changeMap(restaurantName, restaurantLocation){
             document.getElementById('mapFrame').src = "https://www.google.com/maps/embed/v1/directions?key=" + "AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4" +
                 "&origin=SAP+Sao+Leopoldo"+"&destination="+ restaurantName.replace(' ', '+') + "+" + restaurantLocation.replace(' ', '+');
+        }
+
+        function voteAndRefreshView(restaurantId, userId) {
+
+            var todayVoteHistory = <c:out value="${'todayVoteHistory'}"/>;
+            var todayVote;
+
+            for( var vote in todayVoteHistory){
+                if (vote['restaurant']['id'] === restaurantId){
+                    todayVote = vote;
+                    break;
+                }
+            }
+
+            if(vote === null || vote === undefined){
+                alert("First vote of the day");
+                $.ajax({
+                    url : '/restaurants/addVote',
+                    data: { restaurantId: restaurantId},
+                    dataType: 'json',
+                    success : function(response) {
+
+                    }
+                });
+                alert("Vote added");
+            }
+            else    alert("Not the first vote of the day");
+
+            refreshViewAfterVote(restaurantId);
+        }
+
+        function refreshViewAfterVote(restaurantId){
+
         }
     </script>
 </head>
@@ -50,7 +83,8 @@
                     <td>${restaurant.name}</td>
                     <td>${restaurant.averagePrice}</td>
                     <td>${restaurant.location}</td>
-                    <td align="center"> <c:choose>
+                    <td align="center">
+                        <c:choose>
                             <c:when test="${restaurant.aleloAccepted}">Yes</c:when>
                             <c:otherwise>No</c:otherwise>
                         </c:choose>
@@ -59,15 +93,21 @@
 
                     <td><a href="/restaurants/update-restaurant?restaurantId=${restaurant.id}">
                             <img class="button" height="30px" width="30px" alt="Update the restaurant"
-                                src="/resources/images/update_icon.png"
-                            />
+                                src="/resources/images/update_icon.png"/>
                         </a>
+
                     <td><a href="/restaurants/delete-restaurant?restaurantId=${restaurant.id}">
                         <img class="button" height="30px" width="30px" alt="Delete the restaurant"
-                             src="/resources/images/delete_icon.png"
-                        />
-                    <td><img src="/resources/images/map_icon.png" height="30px" width="30px" alt="Show restaurant directions"
+                             src="/resources/images/delete_icon.png"/>
+
+                    <td><img src="/resources/images/map_icon.png" height="30px" width="30px"
+                             alt="Show restaurant directions"
                              onmousedown="changeMap('${restaurant.name}','${restaurant.location}')"/>
+                    </td>
+                    
+                    <td><img src="/resources/images/vote_icon.png" height="30px" width="30px"
+                             alt="Vote for this restaurant"
+                             onmousedown="voteAndRefreshView('${restaurant.id}','${user.id}')"/>
                     </td>
                 </tr>
             </c:forEach>

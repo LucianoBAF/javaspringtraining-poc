@@ -14,63 +14,122 @@
     <schema id="5" parent="2" name="SYSTEM_LOBS"/>
     <table id="6" parent="4" name="RESTAURANT"/>
     <table id="7" parent="4" name="USER"/>
-    <column id="8" parent="6" name="ID">
+    <table id="8" parent="4" name="VOTEHISTORY"/>
+    <column id="9" parent="6" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(32)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="9" parent="6" name="ALELOACCEPTED">
+    <column id="10" parent="6" name="ALELOACCEPTED">
       <Position>2</Position>
       <DataType>BOOLEAN(0)|16</DataType>
     </column>
-    <column id="10" parent="6" name="AVERAGEPRICE">
+    <column id="11" parent="6" name="AVERAGEPRICE">
       <Position>3</Position>
       <DataType>DOUBLE(64)|8</DataType>
     </column>
-    <column id="11" parent="6" name="IMAGE">
+    <column id="12" parent="6" name="IMAGE">
       <Position>4</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <column id="12" parent="6" name="LOCATION">
+    <column id="13" parent="6" name="LOCATION">
       <Position>5</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <column id="13" parent="6" name="NAME">
+    <column id="14" parent="6" name="NAME">
       <Position>6</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <key id="14" parent="6" name="SYS_PK_10092">
+    <column id="15" parent="6" name="VOTEHISTORY_ID">
+      <Position>7</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <key id="16" parent="6" name="SYS_PK_10092">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="15" parent="7" name="ID">
+    <foreign-key id="17" parent="6" name="FKDBSGEH7YG5D84ANULIMS3HG3P">
+      <ColNames>VOTEHISTORY_ID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>VOTEHISTORY</RefTableName>
+      <RefKeyName>SYS_PK_10104</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="18" parent="7" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(32)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="16" parent="7" name="NAME">
+    <column id="19" parent="7" name="NAME">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="17" parent="7" name="EMAIL">
+    <column id="20" parent="7" name="EMAIL">
       <Position>3</Position>
       <DataType>VARCHAR(255)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="18" parent="7" name="PASSWORD">
+    <column id="21" parent="7" name="PASSWORD">
       <Position>4</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <column id="19" parent="7" name="DATEOFBIRTH">
+    <column id="22" parent="7" name="DATEOFBIRTH">
       <Position>5</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <key id="20" parent="7" name="SYS_PK_10096">
+    <column id="23" parent="7" name="VOTEHISTORY_ID">
+      <Position>6</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <key id="24" parent="7" name="SYS_PK_10096">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="25" parent="7" name="FKAF3BLB8XF75W51UDVWA9M3KOK">
+      <ColNames>VOTEHISTORY_ID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>VOTEHISTORY</RefTableName>
+      <RefKeyName>SYS_PK_10104</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="26" parent="8" name="ID">
+      <Position>1</Position>
+      <DataType>INTEGER(32)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="8" name="DATE">
+      <Position>2</Position>
+      <DataType>DATE(10)|91</DataType>
+    </column>
+    <column id="28" parent="8" name="RESTAURANT_VOTEHISTORIES">
+      <Position>3</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <column id="29" parent="8" name="USER_VOTEHISTORIES">
+      <Position>4</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <key id="30" parent="8" name="SYS_PK_10104">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="31" parent="8" name="FKQDYMV8RT7291YW3VIH8BNB2MK">
+      <ColNames>RESTAURANT_VOTEHISTORIES</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>RESTAURANT</RefTableName>
+      <RefKeyName>SYS_PK_10092</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="32" parent="8" name="FK829SM0C9M3WER6Q9WR9OMHMG9">
+      <ColNames>USER_VOTEHISTORIES</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>USER</RefTableName>
+      <RefKeyName>SYS_PK_10096</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
   </database-model>
 </dataSource>

@@ -4,6 +4,7 @@ import com.sap.javaspringtrainingpoc.models.User;
 import com.sap.javaspringtrainingpoc.services.SecurityService;
 import com.sap.javaspringtrainingpoc.services.UserService;
 
+import com.sap.javaspringtrainingpoc.services.VoteService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -38,6 +39,9 @@ public class UserController {
 
     @Resource
     private SecurityService securityService;
+
+    @Resource
+    private VoteService voteService;
 
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)

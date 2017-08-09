@@ -52,4 +52,14 @@ public class DefaultUserService implements UserService{
         return passwordEncoder.encode(password);
     }
 
+    @Override
+    public User getUserById(int userId) {
+        return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User getUserByEmail(String userEmail) {
+        return userDao.getUserByEmail(userEmail);
+    }
+
 }

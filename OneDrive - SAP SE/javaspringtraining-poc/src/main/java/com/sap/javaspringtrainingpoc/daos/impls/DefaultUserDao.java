@@ -44,4 +44,11 @@ public class DefaultUserDao implements UserDao{
             return  (User)(criteria.getExecutableCriteria(session).uniqueResult());
         }
     }
+
+    @Override
+    public User getUserById(int userId) {
+        try(Session session = sessionFactory.openSession()){
+            return session.get(User.class,userId);
+        }
+    }
 }
