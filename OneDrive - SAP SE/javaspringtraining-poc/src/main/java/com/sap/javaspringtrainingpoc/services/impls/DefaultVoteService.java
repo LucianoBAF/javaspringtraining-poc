@@ -35,8 +35,8 @@ public class DefaultVoteService implements VoteService {
 
     @Override
     @Transactional
-    public void removeUserVoteToRestaurant(User user, int restaurantId) {
-        voteDao.removeUserVoteToRestaurant(user,restaurantId);
+    public void removeUserVoteToRestaurant(User user, Restaurant restaurant) {
+        voteDao.removeUserVoteToRestaurant(user,restaurant);
     }
 
     @Override

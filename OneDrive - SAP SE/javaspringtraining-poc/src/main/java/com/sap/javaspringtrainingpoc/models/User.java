@@ -1,5 +1,6 @@
 package com.sap.javaspringtrainingpoc.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,7 +49,7 @@ public class User {
     private String dateOfBirth;
 
 
-
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,

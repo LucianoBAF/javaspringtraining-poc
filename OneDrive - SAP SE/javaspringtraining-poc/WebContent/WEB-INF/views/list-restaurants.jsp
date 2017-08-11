@@ -18,39 +18,6 @@
             document.getElementById('mapFrame').src = "https://www.google.com/maps/embed/v1/directions?key=" + "AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4" +
                 "&origin=SAP+Sao+Leopoldo"+"&destination="+ restaurantName.replace(' ', '+') + "+" + restaurantLocation.replace(' ', '+');
         }
-
-        function voteAndRefreshView(restaurantId, userId) {
-
-            var todayVoteHistory = <c:out value="${'todayVoteHistory'}"/>;
-            var todayVote;
-
-            for( var vote in todayVoteHistory){
-                if (vote['restaurant']['id'] === restaurantId){
-                    todayVote = vote;
-                    break;
-                }
-            }
-
-            if(vote === null || vote === undefined){
-                alert("First vote of the day");
-                $.ajax({
-                    url : '/restaurants/addVote',
-                    data: { restaurantId: restaurantId},
-                    dataType: 'json',
-                    success : function(response) {
-
-                    }
-                });
-                alert("Vote added");
-            }
-            else    alert("Not the first vote of the day");
-
-            refreshViewAfterVote(restaurantId);
-        }
-
-        function refreshViewAfterVote(restaurantId){
-
-        }
     </script>
 </head>
 
@@ -105,16 +72,45 @@
                              onmousedown="changeMap('${restaurant.name}','${restaurant.location}')"/>
                     </td>
                     
-                    <td><img src="/resources/images/vote_icon.png" height="30px" width="30px"
-                             alt="Vote for this restaurant"
-                             onmousedown="voteAndRefreshView('${restaurant.id}','${user.id}')"/>
+                    <td>
+                        <c:set var="restaurantId" value='${restaurant.id}'/>
+                        <c:set var="userVote" value='${restaurantUserVotedToday}'/>
+
+                        <c:choose>
+                            <c:when test="${userVote == '0'}">
+                                <a href="/restaurants/vote?restaurantId=${restaurant.id}">
+                                    <img src="/resources/images/vote_icon.png" height="30px" width="30px"
+                                         alt="Vote for this restaurant"
+                                         id="voteButton"+${restaurant.id}
+                                         name = "voteButton"/>
+                                    <br />
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${restaurantId == userVote}">
+                                        <a href="/restaurants/vote?restaurantId=${restaurant.id}">
+                                        <img src="/resources/images/vote_icon.png" height="30px" width="30px"
+                                             alt="Remove vote for this restaurant"
+                                             id="voteButton"+${restaurant.id}
+                                             name = "voteButton"/>
+                                        <br />
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <br />
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+
                     </td>
                 </tr>
             </c:forEach>
         </table>
 
 
-        <table  border="1" id="mapTable" class="googleMaps">
+        <table  border="0" id="mapTable" class="googleMaps">
         <tr>
             <td>
                 <iframe id="mapFrame"

@@ -22,7 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by I863409 on 24/07/2017.
@@ -41,12 +44,42 @@ public class RestaurantController {
     private VoteService voteService;
 
     @RequestMapping(value = "/")
-    public String listRestaurants(Model model) {
+    public String listRestaurants(Model model, Principal principal) {
+        String loggedUserEmail = principal.getName();
         List<Restaurant> restaurants = restaurantService.listRestaurants();
-        model.addAttribute("restaurants", restaurants);
+        List<VoteHistory> voteHistoryToday = voteService.getTodayVoteHistory();
+        HashMap<Integer,Integer> restaurantIdVoteCount = new HashMap<>();
+        HashMap<Integer,List<String>> restaurantIdAndVotersName = new HashMap<>();
+        int restaurantUserVotedToday = 0; //If 0 it means na invalid restaurant id, thus no vote
 
-        List<VoteHistory> todayVoteHistory = voteService.getTodayVoteHistory();
-        model.addAttribute("todayVoteHistory",todayVoteHistory);
+        //Initialize both maps with no vote count or voters name
+        for (Restaurant restaurant : restaurants) {
+            restaurantIdVoteCount.put(restaurant.getId(),0);
+            restaurantIdAndVotersName.put(restaurant.getId(), new ArrayList<>());
+        }
+
+        //Computes the number of votes and the list of voters for each restaurant
+        //in addition to checking if the actual user already voted today
+        for (VoteHistory vote : voteHistoryToday) {
+            int restaurantId = vote.getRestaurant().getId();
+
+            int voteCount = restaurantIdVoteCount.get(restaurantId);
+            restaurantIdVoteCount.put(vote.getRestaurant().getId(),voteCount+1);
+
+            List<String> voters = restaurantIdAndVotersName.get(restaurantId);
+            voters.add(vote.getUser().getName());
+            restaurantIdAndVotersName.put(restaurantId,voters);
+
+            if(vote.getUser().getEmail().equals(loggedUserEmail)){
+                restaurantUserVotedToday = restaurantId;
+            }
+        }
+
+        model.addAttribute("restaurants", restaurants);
+        model.addAttribute("voteHistoryToday",voteHistoryToday);
+        model.addAttribute("restaurantIdVoteCount",restaurantIdVoteCount);
+        model.addAttribute("restaurantIdAndVotersName",restaurantIdAndVotersName);
+        model.addAttribute("restaurantUserVotedToday", restaurantUserVotedToday);
 
         return "list-restaurants";
     }
@@ -93,16 +126,59 @@ public class RestaurantController {
     }
 
 
-    @ResponseBody //in order to return a json to ajax request on the view
-    @RequestMapping(value = "/addVote", method = RequestMethod.GET)
-    public void addVote(@RequestParam("restaurantId") int restaurantId, Principal principal){
+    @ResponseBody//in order to return a json to ajax request on the view
+    @RequestMapping(value = "/getTodayVoteHistory", method = RequestMethod.GET)
+    public  List<VoteHistory> getTodayVoteHistory(){
+        List<VoteHistory> voteHistoryList = voteService.getTodayVoteHistory();
+        return voteHistoryList;
+    }
+
+
+
+    @RequestMapping(value = "/vote", method = RequestMethod.GET)
+    public String addVote(@RequestParam("restaurantId") int restaurantId, Principal principal, Model model){
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         User user =  userService.getUserByEmail(principal.getName());   //Get logged user email
 
-        voteService.addUserVoteToRestaurant(user,restaurant);
+        List<VoteHistory> voteHistoryToday = voteService.getTodayVoteHistory();
+        boolean loggedUserAlreadyVoted = false;
 
-        //return "redirect:/restaurants/";
+        for (VoteHistory vote : voteHistoryToday) {
+            if(vote.getUser().getEmail().equals(principal.getName())){
+                loggedUserAlreadyVoted = true;
+            }
+        }
+
+        if(loggedUserAlreadyVoted){
+            try {
+                voteService.removeUserVoteToRestaurant(user,restaurant);
+            } catch (Exception e) {
+                e.printStackTrace();
+                //return "Couldn't register the vote";
+            }
+        }
+        else{
+            try {
+                voteService.addUserVoteToRestaurant(user,restaurant);
+            } catch (Exception e) {
+                e.printStackTrace();
+                //return "Couldn't register the vote";
+            }
+        }
+
+        //@ResponseBody
+        return "redirect:/restaurants/";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getLoggedUserEmail", method = RequestMethod.POST)
+    public String getLoggedUserEmail(Principal principal){
+        return principal.getName();
+    }
+
+
+
+
 
 
 }

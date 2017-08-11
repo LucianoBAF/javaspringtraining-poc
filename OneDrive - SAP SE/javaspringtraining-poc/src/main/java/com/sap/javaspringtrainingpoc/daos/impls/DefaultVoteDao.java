@@ -49,18 +49,29 @@ public class DefaultVoteDao implements VoteDao{
     }
 
     @Override
-    public void removeUserVoteToRestaurant(User user, int restaurantId) {
+    public void removeUserVoteToRestaurant(User user, Restaurant restaurant) {
         Session session = sessionFactory.getCurrentSession();
+        int restaurantId = restaurant.getId();
 
+        /*
         DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
-        criteria.createCriteria("restaurant")
-                .add(Restrictions.like("id",String.valueOf(restaurantId)));
-        criteria.createCriteria("user")
-                .add(Restrictions.like("id",String.valueOf(user.getId())));
-        criteria.add(Restrictions.like("date",LocalDate.now()));
+        criteria.add(Restrictions.eq("date",LocalDate.now()))
+                .createCriteria("restaurant")
+                .add(Restrictions.eq("id",restaurantId))
+                .createCriteria("user")
+                .add(Restrictions.eq("id",user.getId()));
+        */
+
+        DetachedCriteria dc = DetachedCriteria
+                .forClass(VoteHistory.class , "v")
+                .add(Restrictions.eq("date",LocalDate.now()))
+                        .createAlias("v.user", "vu")
+                        .add(Restrictions.eq("vu.id",user.getId()))
+                                .createAlias("v.restaurant", "vr")
+                                .add(Restrictions.eq("vr.id",restaurantId));
 
 
-        VoteHistory voteHistory = (VoteHistory) criteria.getExecutableCriteria(session).uniqueResult();
+        VoteHistory voteHistory = (VoteHistory) dc.getExecutableCriteria(session).uniqueResult();
 
         session.delete(voteHistory);
 
@@ -71,11 +82,15 @@ public class DefaultVoteDao implements VoteDao{
     @Override
     public List<VoteHistory> getTodayVoteHistory() {
         try(Session session = sessionFactory.openSession()){
+
             DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
             criteria.add(Restrictions.like("date",LocalDate.now()));
 
             List<VoteHistory> todayVoteHistory = (List<VoteHistory>) criteria.getExecutableCriteria(session).list();
             return todayVoteHistory;
+
+
+
         }
     }
 

@@ -1,5 +1,6 @@
 package com.sap.javaspringtrainingpoc.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.NumberFormat;
@@ -39,7 +40,7 @@ public class Restaurant {
     private String image;
 
 
-
+    @JsonIgnore
     @OneToMany(
             mappedBy = "restaurant",
             cascade = CascadeType.ALL,
