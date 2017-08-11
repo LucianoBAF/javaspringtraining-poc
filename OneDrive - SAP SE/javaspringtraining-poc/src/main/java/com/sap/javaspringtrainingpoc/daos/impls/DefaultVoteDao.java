@@ -53,15 +53,6 @@ public class DefaultVoteDao implements VoteDao{
         Session session = sessionFactory.getCurrentSession();
         int restaurantId = restaurant.getId();
 
-        /*
-        DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
-        criteria.add(Restrictions.eq("date",LocalDate.now()))
-                .createCriteria("restaurant")
-                .add(Restrictions.eq("id",restaurantId))
-                .createCriteria("user")
-                .add(Restrictions.eq("id",user.getId()));
-        */
-
         DetachedCriteria dc = DetachedCriteria
                 .forClass(VoteHistory.class , "v")
                 .add(Restrictions.eq("date",LocalDate.now()))

@@ -13,10 +13,22 @@
     <%@include file="/resources/tags/header.jsp"%>
 <head>
     <%--Scripts Area--%>
-    <script>
+    <script type="text/javascript">
+
         function changeMap(restaurantName, restaurantLocation){
             document.getElementById('mapFrame').src = "https://www.google.com/maps/embed/v1/directions?key=" + "AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4" +
                 "&origin=SAP+Sao+Leopoldo"+"&destination="+ restaurantName.replace(' ', '+') + "+" + restaurantLocation.replace(' ', '+');
+        }
+
+        function populateVotes(restaurantId){
+            var restaurantIdVoteCount = ${restaurantIdVoteCount};
+            document.getElementById("votes"+restaurantId).innerHTML = restaurantIdVoteCount[restaurantId];
+        }
+
+        function populateVoters(restaurantId){
+            var restaurantIdAndVotersName = ${restaurantIdAndVotersName};
+            var votersList = restaurantIdAndVotersName[restaurantId];
+            document.getElementById("voters"+restaurantId).innerHTML = votersList;
         }
     </script>
 </head>
@@ -37,6 +49,8 @@
                 <th>Location</th>
                 <th>Alelo acceptance</th>
                 <th>Image</th>
+                <th>Number of votes</th>
+                <th>Users</th>
                 <th>
                     <a href="/restaurants/add-restaurant" class="addRestaurantButton">
                         <img class="button" height="20px" width="30px" alt="Add a new restaurant"
@@ -57,6 +71,12 @@
                         </c:choose>
                     </td>
                     <td>${restaurant.image}</td>
+                    <td id="votes${restaurant.id}">
+                        <script>populateVotes('${restaurant.id}')</script>
+                    </td>
+                    <td id="voters${restaurant.id}">
+                        <script>populateVoters('${restaurant.id}')</script>
+                    </td>
 
                     <td><a href="/restaurants/update-restaurant?restaurantId=${restaurant.id}">
                             <img class="button" height="30px" width="30px" alt="Update the restaurant"
@@ -90,7 +110,7 @@
                                 <c:choose>
                                     <c:when test="${restaurantId == userVote}">
                                         <a href="/restaurants/vote?restaurantId=${restaurant.id}">
-                                        <img src="/resources/images/vote_icon.png" height="30px" width="30px"
+                                        <img src="/resources/images/voteremove_icon.png" height="30px" width="30px"
                                              alt="Remove vote for this restaurant"
                                              id="voteButton"+${restaurant.id}
                                              name = "voteButton"/>

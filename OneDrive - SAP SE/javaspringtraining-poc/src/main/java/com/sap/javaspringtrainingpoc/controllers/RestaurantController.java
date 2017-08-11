@@ -1,5 +1,10 @@
 package com.sap.javaspringtrainingpoc.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.sap.javaspringtrainingpoc.daos.RestaurantDao;
 import com.sap.javaspringtrainingpoc.models.Restaurant;
 import com.sap.javaspringtrainingpoc.models.User;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
 import javax.jws.WebParam;
@@ -75,10 +81,14 @@ public class RestaurantController {
             }
         }
 
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode restaurantIdVoteCountJSON = mapper.convertValue(restaurantIdVoteCount, JsonNode.class);
+        JsonNode restaurantIdAndVotersNameJSON = mapper.convertValue(restaurantIdAndVotersName, JsonNode.class);
+
         model.addAttribute("restaurants", restaurants);
         model.addAttribute("voteHistoryToday",voteHistoryToday);
-        model.addAttribute("restaurantIdVoteCount",restaurantIdVoteCount);
-        model.addAttribute("restaurantIdAndVotersName",restaurantIdAndVotersName);
+        model.addAttribute("restaurantIdVoteCount", restaurantIdVoteCountJSON);
+        model.addAttribute("restaurantIdAndVotersName",restaurantIdAndVotersNameJSON);
         model.addAttribute("restaurantUserVotedToday", restaurantUserVotedToday);
 
         return "list-restaurants";
