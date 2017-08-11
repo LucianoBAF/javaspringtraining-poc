@@ -28,10 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by I863409 on 24/07/2017.
@@ -64,6 +61,11 @@ public class RestaurantController {
             restaurantIdAndVotersName.put(restaurant.getId(), new ArrayList<>());
         }
 
+
+        //Sort restaurants alphabetically
+        Collections.sort(restaurants, Comparator.comparing(Restaurant::getName));
+
+
         //Computes the number of votes and the list of voters for each restaurant
         //in addition to checking if the actual user already voted today
         for (VoteHistory vote : voteHistoryToday) {
@@ -80,6 +82,19 @@ public class RestaurantController {
                 restaurantUserVotedToday = restaurantId;
             }
         }
+
+        //Organizes restaurant list by vote count
+        Restaurant tempRestaurant;
+        for(int j = 0;j < restaurants.size()-1; j++) {
+            for (int i = 0;i < restaurants.size()-1; i++) {
+                if(restaurantIdVoteCount.get(restaurants.get(i).getId()) < restaurantIdVoteCount.get(restaurants.get(i+1).getId())){
+                    tempRestaurant = restaurants.get(i);
+                    restaurants.set(i,restaurants.get(i+1));
+                    restaurants.set(i+1,tempRestaurant);
+                }
+            }
+        }
+        //restaurants.sort(Comparator.comparing(restaurantIdVoteCount::get, Comparator.reverseOrder()).thenComparing(Restaurant::getName));
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode restaurantIdVoteCountJSON = mapper.convertValue(restaurantIdVoteCount, JsonNode.class);

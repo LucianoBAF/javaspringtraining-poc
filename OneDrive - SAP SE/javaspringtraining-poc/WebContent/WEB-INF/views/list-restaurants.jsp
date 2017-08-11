@@ -30,6 +30,18 @@
             var votersList = restaurantIdAndVotersName[restaurantId];
             document.getElementById("voters"+restaurantId).innerHTML = votersList;
         }
+
+        function advanceOneDay(){
+            var oldDate = Date;
+            Date = function (fake)
+            {
+                if( ! fake ) return new oldDate('08/12/2017');
+
+                return new oldDate(fake);
+            }
+            Date.prototype = oldDate.prototype;
+            window.location = "/restaurants/";
+        }
     </script>
 </head>
 
@@ -129,6 +141,11 @@
             </c:forEach>
         </table>
 
+        <br>
+            <div class="text-center">
+                <button onclick="advanceOneDay()">Finish the day</button>
+            </div>
+        <br>
 
         <table  border="0" id="mapTable" class="googleMaps">
         <tr>

@@ -18,6 +18,8 @@
 
     <h2 id="headerText" class="header">What is your favorite restaurant</h2>
     <hr/>
+    <br>
+    <br>
     <div class="items-center" style="margin-left: 40%" >
     <form:form modelAttribute="restaurant" servletRelativeAction="/restaurants/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
         <form:hidden path="id"  />
