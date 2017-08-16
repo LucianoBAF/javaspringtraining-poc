@@ -13,152 +13,104 @@
     <%@include file="/resources/tags/header.jsp"%>
 <head>
     <%--Scripts Area--%>
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        function changeMap(restaurantName, restaurantLocation){
-            document.getElementById('mapFrame').src = "https://www.google.com/maps/embed/v1/directions?key=" + "AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4" +
-                "&origin=SAP+Sao+Leopoldo"+"&destination="+ restaurantName.replace(' ', '+') + "+" + restaurantLocation.replace(' ', '+');
-        }
-
-        function populateVotes(restaurantId){
-            var restaurantIdVoteCount = ${restaurantIdVoteCount};
-            document.getElementById("votes"+restaurantId).innerHTML = restaurantIdVoteCount[restaurantId];
-        }
-
-        function populateVoters(restaurantId){
-            var restaurantIdAndVotersName = ${restaurantIdAndVotersName};
-            var votersList = restaurantIdAndVotersName[restaurantId];
-            document.getElementById("voters"+restaurantId).innerHTML = votersList;
-        }
-
-        function advanceOneDay(){
-            var oldDate = Date;
-            Date = function (fake)
-            {
-                if( ! fake ) return new oldDate('08/12/2017');
-
-                return new oldDate(fake);
+            function changeMap(restaurantName, restaurantLocation){
+                document.getElementById('mapFrame').src = "https://www.google.com/maps/embed/v1/directions?key=" + "AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4" +
+                    "&origin=SAP+Sao+Leopoldo"+"&destination="+ restaurantName.replace(' ', '+') + "+" + restaurantLocation.replace(' ', '+');
             }
-            Date.prototype = oldDate.prototype;
-            window.location = "/restaurants/";
-        }
-    </script>
+
+        </script>
 </head>
 
 <body>
-    <h2 id="headerText" class="header">List of CD's favorite restaurants</h2>
-    <hr>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10 container-fluid">
+        <h1 id="headerText" class="header">List of CD's favorite restaurants</h1>
+        <br><br><br>
 
+        <div class="row">
+                <iframe id="mapFrame" class="center-block"
+                        width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4&q=SAP+Sao+Leopoldo";>
+                </iframe>
+        </div>
+        <br>
 
-
-    <br>
-    <div class="text-center" >
-
-        <table  border="0" id="restaurantTable" class="restaurantsTable">
-            <tr>
-                <th>Name</th>
-                <th>Average price</th>
-                <th>Location</th>
-                <th>Alelo acceptance</th>
-                <th>Image</th>
-                <th>Number of votes</th>
-                <th>Users</th>
-                <th>
-                    <a href="/restaurants/add-restaurant" class="addRestaurantButton">
-                        <img class="button" height="20px" width="30px" alt="Add a new restaurant"
-                             src="/resources/images/add_icon.png"
-                        />
-                    </a>
-                </th>
-            </tr>
-            <c:forEach var="restaurant" items="${restaurants}">
-                <tr  class="restaurantRow" id="${restaurant.id}" >
-                    <td>${restaurant.name}</td>
-                    <td>${restaurant.averagePrice}</td>
-                    <td>${restaurant.location}</td>
-                    <td align="center">
-                        <c:choose>
-                            <c:when test="${restaurant.aleloAccepted}">Yes</c:when>
-                            <c:otherwise>No</c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>${restaurant.image}</td>
-                    <td id="votes${restaurant.id}">
-                        <script>populateVotes('${restaurant.id}')</script>
-                    </td>
-                    <td id="voters${restaurant.id}">
-                        <script>populateVoters('${restaurant.id}')</script>
-                    </td>
-
-                    <td><a href="/restaurants/update-restaurant?restaurantId=${restaurant.id}">
+        <c:forEach var="restaurant" items="${restaurants}">
+                <div class="card col-md-4 text-center card-full-height container-fluid" >
+                    <img class="card-image-top center-block container-fluid" width="300px" height="200px" alt="Restaurant" src=${restaurant.image} >
+                    <div class="card-block">
+                        <h3 class="card-title">${restaurant.name}</h3>
+                        <p class="card-text">Location: ${restaurant.location}</p>
+                        <p class="card-text">Price: ${restaurant.averagePrice}</p>
+                        <p>
+                            <c:choose>
+                                <c:when test="${restaurant.aleloAccepted}">
+                                    <img class="button" height="40px" width="40px" alt="Alelo accepted"
+                                         src="/resources/images/alelo_active_icon.png"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="button" height="30px" width="40px" alt="Alelo not accepted"
+                                         src="/resources/images/alelo_inactive_icon.png"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
+                        <p id="numberOfVotes">Number of votes: ${restaurant.numberOfVotes}</p>
+                        <p class="voters">Voters:
+                            <c:forEach items="${restaurant.voters}" var="voter">
+                                <c:out value="${voter.name}, " />
+                            </c:forEach>
+                        </p>
+                        <div class="card-footer">
+                        <a href="/restaurants/update-restaurant?restaurantId=${restaurant.id}">
                             <img class="button" height="30px" width="30px" alt="Update the restaurant"
-                                src="/resources/images/update_icon.png"/>
+                                 src="/resources/images/update_icon.png"/>
                         </a>
 
-                    <td><a href="/restaurants/delete-restaurant?restaurantId=${restaurant.id}">
-                        <img class="button" height="30px" width="30px" alt="Delete the restaurant"
-                             src="/resources/images/delete_icon.png"/>
+                        <a href="/restaurants/delete-restaurant?restaurantId=${restaurant.id}">
+                            <img class="button" height="30px" width="30px" alt="Delete the restaurant"
+                                 src="/resources/images/delete_icon.png"/>
+                        </a>
 
-                    <td><img src="/resources/images/map_icon.png" height="30px" width="30px"
-                             alt="Show restaurant directions"
-                             onmousedown="changeMap('${restaurant.name}','${restaurant.location}')"/>
-                    </td>
-                    
-                    <td>
-                        <c:set var="restaurantId" value='${restaurant.id}'/>
-                        <c:set var="userVote" value='${restaurantUserVotedToday}'/>
+                        <img src="/resources/images/map_icon.png" height="30px" width="30px"
+                                 alt="Show restaurant directions"
+                                 onmousedown="changeMap('${restaurant.name}','${restaurant.location}')"/>
 
-                        <c:choose>
-                            <c:when test="${userVote == '0'}">
-                                <a href="/restaurants/vote?restaurantId=${restaurant.id}">
-                                    <img src="/resources/images/vote_icon.png" height="30px" width="30px"
-                                         alt="Vote for this restaurant"
-                                         id="voteButton"+${restaurant.id}
-                                         name = "voteButton"/>
-                                    <br />
-                                </a>
-                            </c:when>
-                            <c:otherwise>
-                                <c:choose>
-                                    <c:when test="${restaurantId == userVote}">
-                                        <a href="/restaurants/vote?restaurantId=${restaurant.id}">
-                                        <img src="/resources/images/voteremove_icon.png" height="30px" width="30px"
-                                             alt="Remove vote for this restaurant"
-                                             id="voteButton"+${restaurant.id}
-                                             name = "voteButton"/>
-                                        <br />
-                                        </a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <br />
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:otherwise>
-                        </c:choose>
 
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
+                            <c:set var="restaurantId" value='${restaurant.id}'/>
+                            <c:set var="userVote" value='${restaurantUserVotedToday}'/>
 
-        <br>
-            <div class="text-center">
-                <button onclick="advanceOneDay()">Finish the day</button>
-            </div>
-        <br>
-
-        <table  border="0" id="mapTable" class="googleMaps">
-        <tr>
-            <td>
-                <iframe id="mapFrame"
-                        width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC4dIDnErJSgIj7lzYHKzDP8tjuExTlJK4&q=SAP+Sao+Leopoldo";
-                        >
-                </iframe>
-            </td>
-        </tr>
-        </table>
-
+                            <c:choose>
+                                <c:when test="${userVote == '0'}">
+                                    <p><a href="/restaurants/vote?restaurantId=${restaurant.id}"
+                                          class="btn btn-primary" role="button">
+                                          Vote</a>
+                                    </p>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${restaurantId == userVote}">
+                                            <p><a href="/restaurants/vote?restaurantId=${restaurant.id}"
+                                                  class="btn btn-primary" role="button">
+                                                  Remove vote</a>
+                                            </p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <br/><br/><br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+        </c:forEach>
     </div>
+    <div class="col-lg-1"></div>
+
+
+
+
 </body>
 </html>

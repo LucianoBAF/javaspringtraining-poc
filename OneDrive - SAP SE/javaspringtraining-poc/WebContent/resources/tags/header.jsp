@@ -17,27 +17,29 @@
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../resources/css/restaurantcss.css" >
 
+
+
     <%-- Scripts --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <title>Where to lunch, CD?</title>
 
-        <br>
-        <%-- Navigation bar at the top --%>
-        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-                <ul class="navbar-header navbar-brand nav-justified">
-                    <p class="navbar-text text-center">Where to lunch, CD?</p>
-                </ul>
-                <ul class="nav navbar-nav">
-                    <li role="presentation" class="active"><a href="#">List-restaurants</a></li>
-                    <li role="presentation"><a href="#">Last polls</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text navbar-right">Signed in as <sec:authentication property="principal.username" />  </p></li>
-                    <li>|</li>
-                    <li><a href="<c:url value="/logoutSpring" />" >Logout</a></li>
-                </ul>
-        </nav>
+    <br>
+    <%-- Navigation bar at the top --%>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+            <ul class="navbar-header navbar-brand nav-justified">
+                <p class="navbar-text text-center">Where to lunch, CD?</p>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li role="presentation" class="active"><a href="/restaurants/">List-restaurants</a></li>
+                <li role="presentation"><a href="/restaurants/pollHistory">Last polls</a></li>
+                <li role="presentation"><a href="/restaurants/add-restaurant">Add restaurant</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 20px">
+                <li><p class="navbar-text navbar-right">Signed in as <sec:authentication property="principal.username" /> | </p></li>
+                <li><a href="<c:url value="/logoutSpring" />" >Logout</a></li>
+            </ul>
+    </nav>
 </head>
 

@@ -49,6 +49,7 @@ public class Restaurant {
     private List<VoteHistory> voteHistories;
 
 
+
     public int getId() {
         return id;
     }

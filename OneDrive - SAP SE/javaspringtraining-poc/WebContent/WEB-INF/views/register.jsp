@@ -5,46 +5,56 @@
   Time: 16:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
-<head>
-    <title>Where to lunch, CD? - Register</title>
+<%@include file="/resources/tags/headerLogin.jsp"%>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../resources/css/restaurantcss.css" >
-
-</head>
 <body>
-
-    <div class="myContainer">
-        <h2>Welcome. Please register</h2>
-
-        <form:form modelAttribute="user" servletRelativeAction="/registration" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
-            Name: <form:input path="name" id="userName" />
-            <form:errors path="name"  class="errors"/><br/>
-            Email: <form:input path="email"/>
-            <form:errors path="email"  class="errors"/><br/>
-            Date of birth: <form:input  path="dateOfBirth" format="dd/MM/yyyy"/>
-            <form:errors path="dateOfBirth"  class="errors"/><br/>
-            Password: <form:password path="password"/>
-            <form:errors path="password"  class="errors"/><br/>
-            Confirm password: <form:password path="passwordConfirm" />
-            <form:errors path="passwordConfirm"  class="errors"/><br/>
-
-
-            <form:hidden path="id"  />
-
-
-
-            <form:button >Save</form:button>
-            <!--    <a href='/'>Cancel</a>  -->
-            <button type="cancel" onclick="window.location='/';return false;">Cancel</button>
-
-        </form:form>
+    <div class="row">
+        <h1 id="headerText" class="header">Welcome, please register</h1>
     </div>
+    <br>
+
+    <div class="col-lg-5"></div>
+    <div class="col-lg-2 container-fluid ">
+        <div class="row center-block">
+            <form:form modelAttribute="user" servletRelativeAction="/registration" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
+                <div class="form-group">
+                    <div class="col-lg-6">Name: </div>
+                    <div class="col-lg-6"><form:input path="name" id="userName" /></div>
+                    <form:errors path="name"  class="errors"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Email: </div>
+                    <div class="col-lg-6"><form:input path="email"/></div>
+
+                    <form:errors path="email"  class="errors"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Date of birth: </div>
+                    <div class="col-lg-6"><form:input  path="dateOfBirth" format="dd/MM/yyyy"/></div>
+
+                    <form:errors path="dateOfBirth"  class="errors"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Password: </div>
+                    <div class="col-lg-6"><form:password path="password"/></div>
+
+                    <form:errors path="password"  class="errors"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Confirm password: </div>
+                    <div class="col-lg-6"><form:password path="passwordConfirm" /></div>
+
+                    <form:errors path="passwordConfirm"  class="errors"/><br/>
+                </div>
+                <form:hidden path="id"  />
+
+                 <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Save</button></div>
+                <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" onclick="window.location='/';return false;">Cancel</button></div>
+
+            </form:form>
+        </div>
+    </div>
+    <div class="col-lg-5"></div>
 </body>
-
-
 </html>

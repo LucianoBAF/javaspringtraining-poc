@@ -7,9 +7,7 @@ import org.hibernate.Session;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,9 +30,12 @@ public class DefaultRestaurantDao  implements RestaurantDao {
         //This try automatically closes the session
         //If it is not used, is mandatory to use @Transactional
         try(Session session = sessionFactory.openSession()) {
-            restaurants = session.createQuery("from Restaurant").list();
+            DetachedCriteria dc = DetachedCriteria
+                    .forClass(Restaurant.class , "r")
+                    .addOrder(Order.asc("name"));
+
+            return dc.getExecutableCriteria(session).list();
         }
-        return restaurants;
     }
 
     @Override

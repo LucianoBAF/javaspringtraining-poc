@@ -7,42 +7,42 @@
 --%>
 
 <html>
-<head>
-    <title>Where to lunch, CD? - Login</title>
-    <%@include file="/resources/tags/headerLogin.jsp"%>
-</head>
+<%@include file="/resources/tags/headerLogin.jsp"%>
 <body>
 
-    <h2 id="headerText" class="header">Where to lunch, CD?</h2>
-    <hr>
-    <br>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10 container-fluid">
+        <h1 class="header">Where to lunch, CD?</h1>
+        <br>
 
-    <div  class="myContainer">
-        <h1 >Log in</h1>
-        <c:if test="${param.error == 'true'}">
-            <div class="form-group">
-                <span style="color: crimson">Login error, please verify your entries</span>
-            </div>
-        </c:if>
-        <form:form modelAttribute="user" servletRelativeAction="/" method="POST" class="loginForm">
-            Email:    <form:input path="email" id="loginEmail"/>
-            <form:errors path="email"/><br/>
-            Password: <form:password path="password" id="loginPassword"/>
-            <form:errors path="password"/><br/>
+        <div class="container">
+            <div class="card card-container default-color2">
+                <h2 class="text-center">Login</h2>
+                <c:if test="${param.error == 'true'}">
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        Please verify your entries
+                    </div>
+                </c:if>
 
-
-
-            <div style="align-items: center;width: 100%;align-self: stretch;">
-                <form:button>Login</form:button>
-            </div>
-
-
-            <br/>
-            <a style="font-size: smaller">Don't have an account? </a>
-            <button type="cancel" onclick="window.location='/registration';return false;">Register now!</button>
-
-        </form:form>
+                <form class="form-signin" role="form" method="post" action="/" >
+                    <div class="input-group">
+                        <span class="input-group-addon">Email</span>
+                        <input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" required autofocus>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Password</span>
+                        <input name="password" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1" required>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                    <br>
+                    <p>Don't have an account? </p>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" onclick="window.location='/registration'">Register now!</button>
+                </form>
+            </div><!-- /card-container -->
+        </div><!-- /container -->
     </div>
-
+    <div class="col-lg-1"></div>
 </body>
 </html>

@@ -1,12 +1,9 @@
 package com.sap.javaspringtrainingpoc.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.sap.javaspringtrainingpoc.daos.RestaurantDao;
 import com.sap.javaspringtrainingpoc.models.Restaurant;
+import com.sap.javaspringtrainingpoc.models.RestaurantData;
 import com.sap.javaspringtrainingpoc.models.User;
 import com.sap.javaspringtrainingpoc.models.VoteHistory;
 import com.sap.javaspringtrainingpoc.services.RestaurantService;
@@ -20,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -51,32 +45,32 @@ public class RestaurantController {
         String loggedUserEmail = principal.getName();
         List<Restaurant> restaurants = restaurantService.listRestaurants();
         List<VoteHistory> voteHistoryToday = voteService.getTodayVoteHistory();
-        HashMap<Integer,Integer> restaurantIdVoteCount = new HashMap<>();
-        HashMap<Integer,List<String>> restaurantIdAndVotersName = new HashMap<>();
         int restaurantUserVotedToday = 0; //If 0 it means na invalid restaurant id, thus no vote
+
+        //Object that contains all restaurant parameters plus voters count and voters list
+        List<RestaurantData> restaurantsDataList = new ArrayList<>();
 
         //Initialize both maps with no vote count or voters name
         for (Restaurant restaurant : restaurants) {
-            restaurantIdVoteCount.put(restaurant.getId(),0);
-            restaurantIdAndVotersName.put(restaurant.getId(), new ArrayList<>());
+
+            RestaurantData rd = new RestaurantData(restaurant);
+
+            restaurantsDataList.add(rd);
+            restaurantsDataList.get(restaurantsDataList.size()-1).setVoters(new ArrayList<>());
+            restaurantsDataList.get(restaurantsDataList.size()-1).setNumberOfVotes(0);
         }
-
-
-        //Sort restaurants alphabetically
-        Collections.sort(restaurants, Comparator.comparing(Restaurant::getName));
 
 
         //Computes the number of votes and the list of voters for each restaurant
         //in addition to checking if the actual user already voted today
         for (VoteHistory vote : voteHistoryToday) {
-            int restaurantId = vote.getRestaurant().getId();
+            Restaurant actualRestaurant = vote.getRestaurant();
+            int restaurantId = actualRestaurant.getId();
+            int indexActualRestaurant = getRestaurantIndexById(restaurantsDataList,restaurantId);
 
-            int voteCount = restaurantIdVoteCount.get(restaurantId);
-            restaurantIdVoteCount.put(vote.getRestaurant().getId(),voteCount+1);
-
-            List<String> voters = restaurantIdAndVotersName.get(restaurantId);
-            voters.add(vote.getUser().getName());
-            restaurantIdAndVotersName.put(restaurantId,voters);
+            RestaurantData restaurant = restaurantsDataList.get(indexActualRestaurant);
+            restaurant.setNumberOfVotes(restaurant.getNumberOfVotes()+1);
+            restaurant.getVoters().add(vote.getUser());
 
             if(vote.getUser().getEmail().equals(loggedUserEmail)){
                 restaurantUserVotedToday = restaurantId;
@@ -84,30 +78,34 @@ public class RestaurantController {
         }
 
         //Organizes restaurant list by vote count
-        Restaurant tempRestaurant;
-        for(int j = 0;j < restaurants.size()-1; j++) {
-            for (int i = 0;i < restaurants.size()-1; i++) {
-                if(restaurantIdVoteCount.get(restaurants.get(i).getId()) < restaurantIdVoteCount.get(restaurants.get(i+1).getId())){
-                    tempRestaurant = restaurants.get(i);
-                    restaurants.set(i,restaurants.get(i+1));
-                    restaurants.set(i+1,tempRestaurant);
+        RestaurantData tempRestaurant;
+        for(int j = 0;j < restaurantsDataList.size()-1; j++) {
+            for (int i = 0;i < restaurantsDataList.size()-1; i++) {
+                if(restaurantsDataList.get(i).getNumberOfVotes() < restaurantsDataList.get(i+1).getNumberOfVotes()){
+                    tempRestaurant = restaurantsDataList.get(i);
+                    restaurantsDataList.set(i,restaurantsDataList.get(i+1));
+                    restaurantsDataList.set(i+1,tempRestaurant);
                 }
             }
         }
-        //restaurants.sort(Comparator.comparing(restaurantIdVoteCount::get, Comparator.reverseOrder()).thenComparing(Restaurant::getName));
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode restaurantIdVoteCountJSON = mapper.convertValue(restaurantIdVoteCount, JsonNode.class);
-        JsonNode restaurantIdAndVotersNameJSON = mapper.convertValue(restaurantIdAndVotersName, JsonNode.class);
-
-        model.addAttribute("restaurants", restaurants);
-        model.addAttribute("voteHistoryToday",voteHistoryToday);
-        model.addAttribute("restaurantIdVoteCount", restaurantIdVoteCountJSON);
-        model.addAttribute("restaurantIdAndVotersName",restaurantIdAndVotersNameJSON);
+        JsonNode restaurantDataJSON = mapper.convertValue(restaurantsDataList, JsonNode.class);
+        model.addAttribute("restaurants",restaurantsDataList);
         model.addAttribute("restaurantUserVotedToday", restaurantUserVotedToday);
 
         return "list-restaurants";
     }
+
+    private int getRestaurantIndexById(List<RestaurantData> restaurantDataList, int restaurantId){
+        for (int i = 0; i < restaurantDataList.size(); i++) {
+            if (restaurantDataList.get(i) !=null && restaurantDataList.get(i).getId() == restaurantId) {
+                return i;
+            }
+        }
+        return -1;//not found
+    }
+
 
     @RequestMapping(value = "/add-restaurant")
     public String createRestaurantForm(Model model) {
@@ -202,7 +200,12 @@ public class RestaurantController {
     }
 
 
+    @RequestMapping(value = "/pollHistory", method = RequestMethod.GET)
+    public String pollHistory(Model model){
 
+        model.addAttribute("voteHistory",voteService.getCompleteVoteHistory());
+        return "pollhistory";
+    }
 
 
 

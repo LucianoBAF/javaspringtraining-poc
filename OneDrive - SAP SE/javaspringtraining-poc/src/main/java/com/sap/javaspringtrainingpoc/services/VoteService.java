@@ -19,6 +19,8 @@ public interface VoteService {
 
     void removeUserVoteToRestaurant(User user, Restaurant restaurant);
 
+    List<VoteHistory> getCompleteVoteHistory();
+
     List<VoteHistory> getTodayVoteHistory();
 
     List<VoteHistory> getRestaurantVoteHistory(int restaurantId);

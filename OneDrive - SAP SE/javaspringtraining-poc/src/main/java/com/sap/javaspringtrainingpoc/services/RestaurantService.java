@@ -1,6 +1,7 @@
 package com.sap.javaspringtrainingpoc.services;
 
 import com.sap.javaspringtrainingpoc.models.Restaurant;
+import com.sap.javaspringtrainingpoc.models.RestaurantData;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface RestaurantService {
     Restaurant getRestaurantByName(String name);
 
     void deleteRestaurant(int restaurantId);
+
+
 }

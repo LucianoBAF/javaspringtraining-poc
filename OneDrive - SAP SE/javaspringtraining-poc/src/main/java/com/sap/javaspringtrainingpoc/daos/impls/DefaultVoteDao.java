@@ -7,9 +7,7 @@ import com.sap.javaspringtrainingpoc.models.VoteHistory;
 import com.sap.javaspringtrainingpoc.services.VoteService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -45,7 +43,6 @@ public class DefaultVoteDao implements VoteDao{
         voteHistory.setUser(user);
 
         session.save(voteHistory);
-
     }
 
     @Override
@@ -71,17 +68,24 @@ public class DefaultVoteDao implements VoteDao{
     }
 
     @Override
+    public List<VoteHistory> getCompleteVoteHistory() {
+        try(Session session = sessionFactory.openSession()){
+            DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
+            criteria.addOrder(Order.asc("date"));
+
+            return criteria.getExecutableCriteria(session).list();
+        }
+    }
+
+    @Override
     public List<VoteHistory> getTodayVoteHistory() {
         try(Session session = sessionFactory.openSession()){
 
             DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
             criteria.add(Restrictions.like("date",LocalDate.now()));
 
-            List<VoteHistory> todayVoteHistory = (List<VoteHistory>) criteria.getExecutableCriteria(session).list();
-            return todayVoteHistory;
-
-
-
+            return criteria.getExecutableCriteria(session).list();
+            //return todayVoteHistory;
         }
     }
 
@@ -89,11 +93,12 @@ public class DefaultVoteDao implements VoteDao{
     public List<VoteHistory> getRestaurantVoteHistory(int restaurantId) {
         try(Session session = sessionFactory.openSession()){
             DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
-            criteria.createCriteria("restaurant")
-                    .add(Restrictions.like("id",String.valueOf(restaurantId)));
+            criteria.addOrder(Order.asc("date"))
+                    .createCriteria("restaurant")
+                    .add(Restrictions.like("id",restaurantId));
 
-            List<VoteHistory> voteHistory = (List<VoteHistory>) criteria.getExecutableCriteria(session).list();
-            return voteHistory;
+            return criteria.getExecutableCriteria(session).list();
+            //return voteHistory;
         }
     }
 
@@ -105,8 +110,8 @@ public class DefaultVoteDao implements VoteDao{
             criteria.createCriteria("user")
                     .add(Restrictions.like("id",String.valueOf(userId)));
 
-            List<VoteHistory> voteHistory = (List<VoteHistory>) criteria.getExecutableCriteria(session).list();
-            return voteHistory;
+            return criteria.getExecutableCriteria(session).list();
+            //return voteHistory;
         }
     }
 

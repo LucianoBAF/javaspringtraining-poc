@@ -3,6 +3,7 @@ package com.sap.javaspringtrainingpoc.services.impls;
 import com.sap.javaspringtrainingpoc.daos.RestaurantDao;
 import com.sap.javaspringtrainingpoc.daos.impls.DefaultRestaurantDao;
 import com.sap.javaspringtrainingpoc.models.Restaurant;
+import com.sap.javaspringtrainingpoc.models.RestaurantData;
 import com.sap.javaspringtrainingpoc.services.RestaurantService;
 import javafx.scene.control.Alert;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -73,4 +74,6 @@ public class DefaultRestaurantService implements RestaurantService {
 
         restaurantDao.deleteRestaurant(restaurantId);
     }
+
+
 }

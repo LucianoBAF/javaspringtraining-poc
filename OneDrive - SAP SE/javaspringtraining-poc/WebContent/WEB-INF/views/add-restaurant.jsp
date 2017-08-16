@@ -5,60 +5,53 @@
   Time: 11:27
   To change this template use File | Settings | File Templates.
 --%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html >
-<head>
-    <%@include file="/resources/tags/header.jsp"%>
-    <title>Where to lunch, CD? - Adding a restaurant</title>
-</head>
-<body onload="isSavingOrUpdating()">
+<%@include file="/resources/tags/header.jsp"%>
 
-    <h2 id="headerText" class="header">What is your favorite restaurant</h2>
-    <hr/>
-    <br>
-    <br>
-    <div class="items-center" style="margin-left: 40%" >
-    <form:form modelAttribute="restaurant" servletRelativeAction="/restaurants/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
-        <form:hidden path="id"  />
-        Name: <form:input path="name" id="restaurantName" />
-        <form:errors path="name"/><br/>
-        Price: <form:input path="averagePrice" format="0.00"/>
-        <form:errors path="averagePrice"/><br/>
-        Location: <form:input path="location" type="text"/>
-        <form:errors path="location"/><br/>
-        Alelo acceptance: <form:checkbox path="aleloAccepted" />
-        <form:errors path="aleloAccepted"/><br/>
-        Image: <form:input path="image" type="text"/>
-        <form:errors path="image"/><br/>
-
-        <form:button>Save</form:button>
-        <!--    <a href='/'>Cancel</a>  -->
-        <button type="cancel" onclick="window.location='/restaurants/';return false;">Cancel</button>
-
-    </form:form>
+<body>
+    <div class="row">
+        <h1 id="headerText" class="header">What is your favorite restaurant?</h1>
     </div>
+    <br><br>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript">
-        function isSavingOrUpdating(){
-            if($("#restaurantName").val().toString() != null){
-                //alert("The name of this restaurant is "+$("#restaurantName").val());
-                $('#headerText').text("Update a restaurant");
-            }
-            else{
-                //alert("Null restaurant. Name: "+$("#restaurantName").val());
-                $('#headerText').text("Add a new restaurant");
-            }
+    <div class="col-lg-5"></div>
+    <div class="col-lg-2 container-fluid ">
+        <div class="row center-block">
+            <form:form modelAttribute="restaurant" servletRelativeAction="/restaurants/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';">
+                <form:hidden path="id"  />
+                <div class="form-group">
+                    <div class="col-lg-6">Name </div>
+                    <div class="col-lg-6"><form:input path="name" id="restaurantName" /></div>
+                    <form:errors path="name"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Price </div>
+                    <div class="col-lg-6"><form:input path="averagePrice" format="0.00"/></div>
+                    <form:errors path="averagePrice"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Location</div>
+                    <div class="col-lg-6"><form:input path="location" type="text"/></div>
+                    <form:errors path="location"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-7">Alelo acceptance</div>
+                    <div class="col-lg-5"><form:checkbox path="aleloAccepted" /></div>
+                    <form:errors path="aleloAccepted"/><br/>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">Image </div>
+                    <div class="col-lg-6"><form:input path="image" type="text"/></div>
+                    <form:errors path="image"/><br/>
+                </div>
 
-        }
-    </script>
-    <script type="text/javascript">
+                <form:button>Save</form:button>
+                <button type="cancel" onclick="window.location='/restaurants/';return false;">Cancel</button>
 
-        //window.onload = isSavingOrUpdating;
-
-    </script>
+            </form:form>
+        </div>
+    </div>
+    <div class="col-lg-5"></div>
 
 </body>
 </html>

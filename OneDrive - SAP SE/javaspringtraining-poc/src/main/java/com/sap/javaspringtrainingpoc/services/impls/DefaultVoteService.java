@@ -40,6 +40,11 @@ public class DefaultVoteService implements VoteService {
     }
 
     @Override
+    public List<VoteHistory> getCompleteVoteHistory() {
+        return voteDao.getCompleteVoteHistory();
+    }
+
+    @Override
     public List<VoteHistory> getTodayVoteHistory() {
         return voteDao.getTodayVoteHistory();
     }
