@@ -75,4 +75,13 @@ public class DefaultRestaurantDao  implements RestaurantDao {
         Restaurant restaurant = session.load(Restaurant.class,restaurantId);
         session.delete(restaurant);
     }
+
+    @Override
+    public List<Restaurant> searchRestaurantsByName(String nameToSearch) {
+        try(Session session = sessionFactory.openSession()){
+            DetachedCriteria criteria = DetachedCriteria.forClass(Restaurant.class);
+            criteria.add(Restrictions.ilike("name", nameToSearch, MatchMode.ANYWHERE));
+            return (List<Restaurant>) criteria.getExecutableCriteria(session).list();
+        }
+    }
 }

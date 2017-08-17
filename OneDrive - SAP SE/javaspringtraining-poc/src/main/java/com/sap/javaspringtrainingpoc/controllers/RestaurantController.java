@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
@@ -159,6 +160,14 @@ public class RestaurantController {
 
         model.addAttribute("voteHistory",voteService.getCompleteVoteHistory());
         return "pollhistory";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/searchRestaurantName", method = RequestMethod.POST)
+    public List<Restaurant> searchRestaurantName(@RequestParam("nameToSearch") String nameToSearch){
+        //Enumeration<String> e = req.getParameterNames();
+        List<Restaurant> lista = restaurantService.searchRestaurantsByName(nameToSearch);
+        return lista;
     }
 
 

@@ -21,4 +21,6 @@ public interface RestaurantDao {
 
     void deleteRestaurant(int restaurantId);
 
+    List<Restaurant> searchRestaurantsByName(String nameToSearch);
+
 }

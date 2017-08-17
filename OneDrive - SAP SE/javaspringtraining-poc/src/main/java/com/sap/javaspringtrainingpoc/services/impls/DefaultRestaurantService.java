@@ -75,5 +75,10 @@ public class DefaultRestaurantService implements RestaurantService {
         restaurantDao.deleteRestaurant(restaurantId);
     }
 
+    @Override
+    public List<Restaurant> searchRestaurantsByName(String nameToSearch) {
+        return restaurantDao.searchRestaurantsByName(nameToSearch);
+    }
+
 
 }

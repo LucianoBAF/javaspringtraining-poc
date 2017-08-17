@@ -95,7 +95,7 @@
 }
 
 .card-full-height{
-    height: 500px;
+    height: 510px;
     /*max-height: 700px;*/
     /*min-height: 600px;*/
     overflow: auto;
@@ -179,4 +179,24 @@ body{
 .btn.btn-signin:active,
 .btn.btn-signin:focus {
     background-color: rgb(12, 97, 33);
+}
+
+.animatedInput {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 8px;
+    background-color: white;
+    background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-128.png');
+    background-position: 0px 5px;
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.animatedInput:focus{
+    width: 100%;
 }

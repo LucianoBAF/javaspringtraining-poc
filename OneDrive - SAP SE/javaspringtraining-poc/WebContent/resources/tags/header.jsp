@@ -14,13 +14,14 @@
 
 <head>
     <%-- Style --%>
-    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <link rel="stylesheet" href="../../resources/css/restaurantcss.css" >
 
 
     <%-- Scripts --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
 
     <title>Where to lunch, CD?</title>
 
@@ -31,8 +32,8 @@
                 <p>Where to lunch, CD?</p>
             </ul>
             <ul class="nav navbar-nav">
-                <li role="presentation" class="active"><a href="/restaurants/">List-restaurants</a></li>
-                <li role="presentation"><a href="/restaurants/pollHistory">Last polls</a></li>
+                <li role="presentation"><a href="/restaurants/">List-restaurants</a></li>
+                <li role="presentation"><a href="/restaurants/pollHistory">Vote history</a></li>
                 <li role="presentation"><a href="/restaurants/add-restaurant">Add restaurant</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" style="margin-right: 20px">

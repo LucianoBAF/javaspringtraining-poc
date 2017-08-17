@@ -19,16 +19,19 @@
         <div class="text-center" >
             <br>
             <table  border="0" id="restaurantTable" class="restaurantsTable">
-                <tr class="restaurantRowHead">
-                    <td >Date</td>
-                    <td >Restaurant</td>
-                    <td >Votes</td>
-                    <%--<th>Voters</th>--%>
-                </tr>
+                <thead>
+                    <tr class="restaurantRowHead">
+                        <td >Date</td>
+                        <td >Restaurant</td>
+                        <td >Votes</td>
+                        <%--<th>Voters</th>--%>
+                    </tr>
+                </thead>
                 <br>
                 <br>
 
 
+                <tbody>
                 <c:set value="00/00/0000" var="lastDate"></c:set>
                 <c:forEach var="vote" items="${voteHistory}">
                     <c:choose>
@@ -62,11 +65,11 @@
                                 <%--</td>--%>
                                 <td>Winner!</td>
                             </tr>
-
                         </c:otherwise>
                     </c:choose>
                     <c:set value="${vote.date}" var="lastDate"></c:set>
                 </c:forEach>
+                </tbody>
             </table>
         </div>
     </div>

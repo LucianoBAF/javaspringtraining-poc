@@ -23,5 +23,5 @@ public interface RestaurantService {
 
     void deleteRestaurant(int restaurantId);
 
-
+    List<Restaurant> searchRestaurantsByName(String nameToSearch);
 }

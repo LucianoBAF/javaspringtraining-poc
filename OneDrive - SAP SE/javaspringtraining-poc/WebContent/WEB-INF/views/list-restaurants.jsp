@@ -20,6 +20,46 @@
                     "&origin=SAP+Sao+Leopoldo"+"&destination="+ restaurantName.replace(' ', '+') + "+" + restaurantLocation.replace(' ', '+');
             }
 
+            function searchRestaurantName(){
+                var cards =  $("#cardsContainer").children("div");
+
+                var restaurantName = $("#restaurantSearch").val();
+                if(restaurantName === null || restaurantName === ""){
+                    for(var i = 0; i < cards.length; i++){
+                        $(cards[i]).show();
+                    }
+                    return;
+                }
+
+                $.post(
+                    "/restaurants/searchRestaurantName",
+                    "nameToSearch="+restaurantName,
+                    function (response) {
+                                for(var i = 0; i < cards.length; i++){
+                                    if(response.length === 0){
+                                        $(cards[i]).hide();
+                                    }
+                                    else {
+                                        response.every(function (restaurant) {
+                                            var cardId = "restaurant".concat(restaurant.id);
+                                            if (cards[i].id === cardId) {
+                                                $(cards[i]).show();
+                                                return false;
+                                            }
+                                            else {
+                                                $(cards[i]).hide();
+                                                return true;
+                                            }
+                                        });
+                                    }
+                                }
+                    }
+                )
+                .fail(function() {
+                    alert( "error" );
+                });
+            }
+
         </script>
 </head>
 
@@ -36,8 +76,18 @@
                 </iframe>
         </div>
         <br>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="col-lg-1">Search restaurant:</div>
+            <div class="col-lg-10"><input id="restaurantSearch" type="text" class="animatedInput" onkeyup="searchRestaurantName()"></div>
+        </div>
+        <div class="col-lg-1"></div>
+
+        <br>
+
+        <div id="cardsContainer">
         <c:forEach var="restaurant" items="${restaurants}">
-                <div class="card col-md-4 text-center card-full-height container-fluid" >
+                <div id="restaurant${restaurant.id}" class="card col-md-4 text-center card-full-height container-fluid">
                     <img class="card-image-top center-block container-fluid" width="300px" height="200px" alt="Restaurant" src=${restaurant.image} >
                     <div class="card-block">
                         <h3 class="card-title">${restaurant.name}</h3>
@@ -105,6 +155,7 @@
                     </div>
                 </div>
         </c:forEach>
+        </div>
     </div>
     <div class="col-lg-1"></div>
 
