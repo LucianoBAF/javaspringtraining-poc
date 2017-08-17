@@ -42,68 +42,22 @@ public class RestaurantController {
 
     @RequestMapping(value = "/")
     public String listRestaurants(Model model, Principal principal) {
-        String loggedUserEmail = principal.getName();
+
         List<Restaurant> restaurants = restaurantService.listRestaurants();
         List<VoteHistory> voteHistoryToday = voteService.getTodayVoteHistory();
-        int restaurantUserVotedToday = 0; //If 0 it means na invalid restaurant id, thus no vote
-
-        //Object that contains all restaurant parameters plus voters count and voters list
         List<RestaurantData> restaurantsDataList = new ArrayList<>();
 
-        //Initialize both maps with no vote count or voters name
-        for (Restaurant restaurant : restaurants) {
+        restaurantsDataList = voteService.getTodayRestaurantsDataByVotes(restaurants,voteHistoryToday);
+        int restaurantUserVotedToday = voteService.getTodayRestaurantIdVotedByUserEmail(voteHistoryToday,principal.getName());
 
-            RestaurantData rd = new RestaurantData(restaurant);
-
-            restaurantsDataList.add(rd);
-            restaurantsDataList.get(restaurantsDataList.size()-1).setVoters(new ArrayList<>());
-            restaurantsDataList.get(restaurantsDataList.size()-1).setNumberOfVotes(0);
-        }
-
-
-        //Computes the number of votes and the list of voters for each restaurant
-        //in addition to checking if the actual user already voted today
-        for (VoteHistory vote : voteHistoryToday) {
-            Restaurant actualRestaurant = vote.getRestaurant();
-            int restaurantId = actualRestaurant.getId();
-            int indexActualRestaurant = getRestaurantIndexById(restaurantsDataList,restaurantId);
-
-            RestaurantData restaurant = restaurantsDataList.get(indexActualRestaurant);
-            restaurant.setNumberOfVotes(restaurant.getNumberOfVotes()+1);
-            restaurant.getVoters().add(vote.getUser());
-
-            if(vote.getUser().getEmail().equals(loggedUserEmail)){
-                restaurantUserVotedToday = restaurantId;
-            }
-        }
-
-        //Organizes restaurant list by vote count
-        RestaurantData tempRestaurant;
-        for(int j = 0;j < restaurantsDataList.size()-1; j++) {
-            for (int i = 0;i < restaurantsDataList.size()-1; i++) {
-                if(restaurantsDataList.get(i).getNumberOfVotes() < restaurantsDataList.get(i+1).getNumberOfVotes()){
-                    tempRestaurant = restaurantsDataList.get(i);
-                    restaurantsDataList.set(i,restaurantsDataList.get(i+1));
-                    restaurantsDataList.set(i+1,tempRestaurant);
-                }
-            }
-        }
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode restaurantDataJSON = mapper.convertValue(restaurantsDataList, JsonNode.class);
+
         model.addAttribute("restaurants",restaurantsDataList);
         model.addAttribute("restaurantUserVotedToday", restaurantUserVotedToday);
 
         return "list-restaurants";
-    }
-
-    private int getRestaurantIndexById(List<RestaurantData> restaurantDataList, int restaurantId){
-        for (int i = 0; i < restaurantDataList.size(); i++) {
-            if (restaurantDataList.get(i) !=null && restaurantDataList.get(i).getId() == restaurantId) {
-                return i;
-            }
-        }
-        return -1;//not found
     }
 
 

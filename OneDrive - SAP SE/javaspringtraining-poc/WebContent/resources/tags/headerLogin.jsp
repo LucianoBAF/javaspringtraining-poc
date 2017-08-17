@@ -35,7 +35,7 @@
             <li role="presentation"><a href="/registration">Register</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right: 20px">
-            <li><p class="navbar-text navbar-right">User not signed yet.</p></li>
+            <li><p class="navbar-text navbar-right">User not signed yet</p></li>
         </ul>
     </nav>
 </head>

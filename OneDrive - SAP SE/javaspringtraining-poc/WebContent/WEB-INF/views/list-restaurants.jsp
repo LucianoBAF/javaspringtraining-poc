@@ -27,7 +27,7 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-10 container-fluid">
         <h1 id="headerText" class="header">List of CD's favorite restaurants</h1>
-        <br><br><br>
+        <br><br>
 
         <div class="row">
                 <iframe id="mapFrame" class="center-block"
@@ -36,7 +36,6 @@
                 </iframe>
         </div>
         <br>
-
         <c:forEach var="restaurant" items="${restaurants}">
                 <div class="card col-md-4 text-center card-full-height container-fluid" >
                     <img class="card-image-top center-block container-fluid" width="300px" height="200px" alt="Restaurant" src=${restaurant.image} >
@@ -51,7 +50,7 @@
                                          src="/resources/images/alelo_active_icon.png"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img class="button" height="30px" width="40px" alt="Alelo not accepted"
+                                    <img class="button" height="40px" width="40px" alt="Alelo not accepted"
                                          src="/resources/images/alelo_inactive_icon.png"/>
                                 </c:otherwise>
                             </c:choose>

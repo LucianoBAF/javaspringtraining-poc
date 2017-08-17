@@ -19,43 +19,53 @@
         <div class="text-center" >
             <br>
             <table  border="0" id="restaurantTable" class="restaurantsTable">
-                <tr>
-                    <th>Date</th>
-                    <th>Restaurant</th>
-                    <th>Voters</th>
+                <tr class="restaurantRowHead">
+                    <td >Date</td>
+                    <td >Restaurant</td>
+                    <td >Votes</td>
+                    <%--<th>Voters</th>--%>
                 </tr>
                 <br>
                 <br>
 
 
-                <c:set value="${voteHistory[0].date}" var="lastDate"></c:set>
+                <c:set value="00/00/0000" var="lastDate"></c:set>
                 <c:forEach var="vote" items="${voteHistory}">
                     <c:choose>
                         <c:when test="${lastDate.equals(vote.date) }">
                             <tr  class="restaurantRow" >
                                 <td>${vote.date}</td>
                                 <td>${vote.restaurant.name}</td>
-                                <td>${vote.user.name}</td>
+                                <td>${vote.numberOfVotes}</td>
+                                <%--<td>--%>
+                                <%--<c:forEach items="${vote.voters}" var="voter">--%>
+                                    <%--<c:out value="${voter.name}, " />--%>
+                                <%--</c:forEach>--%>
+                                <%--</td>--%>
                             </tr>
                         </c:when>
                         <c:otherwise>
+                            <!-- New voting day! -->
                             <tr>
                                 <td><hr></td>
                                 <td><hr></td>
                                 <td><hr></td>
                             </tr>
-                            <tr  class="restaurantWinner" >
+                            <tr class="restaurantWinner" >
                                 <td>${vote.date}</td>
                                 <td>${vote.restaurant.name}</td>
-                                <td>${vote.user.name}</td>
-                                <td style="color: gold">Winner!</td>
+                                <td>${vote.numberOfVotes}</td>
+                                <%--<td>--%>
+                                <%--<c:forEach items="${vote.voters}" var="voter">--%>
+                                    <%--<c:out value="${voter.name}, " />--%>
+                                <%--</c:forEach>--%>
+                                <%--</td>--%>
+                                <td>Winner!</td>
                             </tr>
 
                         </c:otherwise>
                     </c:choose>
                     <c:set value="${vote.date}" var="lastDate"></c:set>
-
-
                 </c:forEach>
             </table>
         </div>

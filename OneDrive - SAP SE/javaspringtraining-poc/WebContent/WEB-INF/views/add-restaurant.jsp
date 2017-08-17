@@ -5,7 +5,7 @@
   Time: 11:27
   To change this template use File | Settings | File Templates.
 --%>
-<html >
+<html>
 <%@include file="/resources/tags/header.jsp"%>
 
 <body>
@@ -14,11 +14,10 @@
     </div>
     <br><br>
 
-    <div class="col-lg-5"></div>
-    <div class="col-lg-2 container-fluid ">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 container-fluid ">
         <div class="row center-block">
             <form:form modelAttribute="restaurant" servletRelativeAction="/restaurants/add-restaurant" method="POST" cssStyle="font-family: 'Yu Gothic';">
-                <form:hidden path="id"  />
                 <div class="form-group">
                     <div class="col-lg-6">Name </div>
                     <div class="col-lg-6"><form:input path="name" id="restaurantName" /></div>
@@ -44,14 +43,17 @@
                     <div class="col-lg-6"><form:input path="image" type="text"/></div>
                     <form:errors path="image"/><br/>
                 </div>
+                <form:hidden path="id"  />
 
-                <form:button>Save</form:button>
-                <button type="cancel" onclick="window.location='/restaurants/';return false;">Cancel</button>
+                <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Save</button></div>
+                <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" onclick="window.location='/restaurants/';return false;">Cancel</button></div>
+
+
 
             </form:form>
         </div>
     </div>
-    <div class="col-lg-5"></div>
+    <div class="col-lg-4"></div>
 
 </body>
 </html>

@@ -14,8 +14,8 @@
     </div>
     <br>
 
-    <div class="col-lg-5"></div>
-    <div class="col-lg-2 container-fluid ">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 container-fluid ">
         <div class="row center-block">
             <form:form modelAttribute="user" servletRelativeAction="/registration" method="POST" cssStyle="font-family: 'Yu Gothic';align-items: center; align-self: center">
                 <div class="form-group">
@@ -50,11 +50,11 @@
                 <form:hidden path="id"  />
 
                  <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Save</button></div>
-                <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" onclick="window.location='/';return false;">Cancel</button></div>
+                 <div class="col-lg-6"><button class="btn btn-lg btn-primary btn-block btn-signin" onclick="window.location='/';return false;">Cancel</button></div>
 
             </form:form>
         </div>
     </div>
-    <div class="col-lg-5"></div>
+    <div class="col-lg-4"></div>
 </body>
 </html>

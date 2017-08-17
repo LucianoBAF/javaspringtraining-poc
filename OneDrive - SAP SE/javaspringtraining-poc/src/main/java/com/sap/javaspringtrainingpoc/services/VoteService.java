@@ -1,9 +1,8 @@
 package com.sap.javaspringtrainingpoc.services;
 
-import com.sap.javaspringtrainingpoc.models.Restaurant;
-import com.sap.javaspringtrainingpoc.models.User;
-import com.sap.javaspringtrainingpoc.models.VoteHistory;
+import com.sap.javaspringtrainingpoc.models.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +18,11 @@ public interface VoteService {
 
     void removeUserVoteToRestaurant(User user, Restaurant restaurant);
 
-    List<VoteHistory> getCompleteVoteHistory();
+    List<VoteHistoryData> getCompleteVoteHistory();
 
     List<VoteHistory> getTodayVoteHistory();
+
+    List<VoteHistory> getVoteHistoryByDate(LocalDate date);
 
     List<VoteHistory> getRestaurantVoteHistory(int restaurantId);
 
@@ -31,5 +32,7 @@ public interface VoteService {
 
     Restaurant getVoterRestaurantToday(int userId);
 
+    List<RestaurantData> getTodayRestaurantsDataByVotes(List<Restaurant> restaurants,List<VoteHistory> voteHistoryToday);
 
+    int getTodayRestaurantIdVotedByUserEmail(List<VoteHistory> voteHistoryToday, String loggedUserEmail);
 }

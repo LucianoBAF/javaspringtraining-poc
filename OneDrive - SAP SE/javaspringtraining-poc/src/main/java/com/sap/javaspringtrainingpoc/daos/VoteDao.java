@@ -4,6 +4,7 @@ import com.sap.javaspringtrainingpoc.models.Restaurant;
 import com.sap.javaspringtrainingpoc.models.User;
 import com.sap.javaspringtrainingpoc.models.VoteHistory;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,8 @@ public interface VoteDao {
     List<VoteHistory> getCompleteVoteHistory();
 
     List<VoteHistory> getTodayVoteHistory();
+
+    List<VoteHistory> getVoteHistoryByDate(LocalDate date);
 
     List<VoteHistory> getRestaurantVoteHistory(int restaurantId);
 

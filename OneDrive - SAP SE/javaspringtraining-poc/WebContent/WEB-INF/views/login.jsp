@@ -15,7 +15,8 @@
         <h1 class="header">Where to lunch, CD?</h1>
         <br>
 
-        <div class="container">
+        <div class="col-lg-1"></div>
+        <div class="container col-lg-10">
             <div class="card card-container default-color2">
                 <h2 class="text-center">Login</h2>
                 <c:if test="${param.error == 'true'}">
@@ -42,6 +43,7 @@
                 </form>
             </div><!-- /card-container -->
         </div><!-- /container -->
+        <div class="col-lg-1"></div>
     </div>
     <div class="col-lg-1"></div>
 </body>

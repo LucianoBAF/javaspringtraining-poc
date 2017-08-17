@@ -70,7 +70,7 @@ public class DefaultVoteDao implements VoteDao{
     @Override
     public List<VoteHistory> getCompleteVoteHistory() {
         try(Session session = sessionFactory.openSession()){
-            DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
+            DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class, "c");
             criteria.addOrder(Order.asc("date"));
 
             return criteria.getExecutableCriteria(session).list();
@@ -86,6 +86,17 @@ public class DefaultVoteDao implements VoteDao{
 
             return criteria.getExecutableCriteria(session).list();
             //return todayVoteHistory;
+        }
+    }
+
+    @Override
+    public List<VoteHistory> getVoteHistoryByDate(LocalDate date) {
+        try(Session session = sessionFactory.openSession()){
+
+            DetachedCriteria criteria = DetachedCriteria.forClass(VoteHistory.class);
+            criteria.add(Restrictions.like("date", date));
+
+            return criteria.getExecutableCriteria(session).list();
         }
     }
 

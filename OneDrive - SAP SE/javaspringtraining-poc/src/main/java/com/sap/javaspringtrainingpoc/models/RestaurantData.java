@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,16 +13,13 @@ import java.util.List;
  */
 public class RestaurantData extends Restaurant{
 
-
-
     private int numberOfVotes;
     
     private List<User> voters;
 
 
-    public RestaurantData() {    }
-
-
+    //Constructors
+    public RestaurantData() {}
 
     public RestaurantData(Restaurant restaurant){
         this.setId(restaurant.getId());
@@ -30,6 +28,9 @@ public class RestaurantData extends Restaurant{
         this.setLocation(restaurant.getLocation());
         this.setAleloAccepted(restaurant.isAleloAccepted());
         this.setImage(restaurant.getImage());
+
+        this.setNumberOfVotes(0);
+        this.setVoters(new ArrayList<>());
     }
 
 

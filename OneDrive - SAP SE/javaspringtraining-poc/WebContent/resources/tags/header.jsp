@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="../../resources/css/restaurantcss.css" >
 
 
-
     <%-- Scripts --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
@@ -28,8 +27,8 @@
     <br>
     <%-- Navigation bar at the top --%>
     <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-            <ul class="navbar-header navbar-brand nav-justified">
-                <p class="navbar-text text-center">Where to lunch, CD?</p>
+            <ul class="navbar-brand nav-justified">
+                <p>Where to lunch, CD?</p>
             </ul>
             <ul class="nav navbar-nav">
                 <li role="presentation" class="active"><a href="/restaurants/">List-restaurants</a></li>
